@@ -1,0 +1,12 @@
+<html>
+<head></head>
+<body>
+The functionality of this application has been grouped into service classes.
+This package contains all external client entry points which
+require orchestration of multiple service calls. This includes
+all WebService calls made from AutoCAD as well as the primary DWR
+calls. Simple CRUD calls are exposed to DWR directly in the Storage service.
+The WebService calls are annotated with @PayloadRoot.
+All exposed DWR calls are included with the dwr:remote tag in spring configuration.
+</body>
+</html>

@@ -1,0 +1,19 @@
+This is a preliminary draft which needs to be converted into a web page.
+
+Grooved joins:
+Used only between 2 main pipes and in place of a pipe break. For example it is always used at an Ell.
+
+Takeout depends on the angle made.
+In case of 0deg (coupling) there is no takeout (pipes touch directly).
+If angle is 90deg and diameters are the same then takeout depends on the diameter and vendor.
+To find it, drill to /info[outlet="Ddd"]/groovedByAngle/entry[key="deg90"]/value/byVendor/entry[key="vvv"]/value
+
+Welded connection and mechanical tee/cross.
+
+Used between a main pipe and an orthogonal pipe of equal or lesser diameter.
+In this case the main pipe is not cut. Instead a hole is drilled in it and an attachment placed.
+The end of that attachment may be either threaded or grooved.
+If the ortho-pipe is a branch then the end has to be treaded.
+Takeout depends on 2 diameters (oo,mm) and the 3 types just described (2 for branches). Drill to:
+/info[outlet="Doo"]/byDiameter/entry[key="Dmm"]/value/byAttachment/entry[key=type]/value
+

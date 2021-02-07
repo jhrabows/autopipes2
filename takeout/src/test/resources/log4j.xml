@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<!-- Except where noted, this file may be edited to control verbosity of the trace. -->
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+           <layout class="org.apache.log4j.PatternLayout">
+             <param name="ConversionPattern"
+		    value="%-4r %-5p [%t] %c - %m%n"/>
+           </layout>	    
+	</appender>
+
+
+<!-- information related to the logging infrastructure -->
+	<category name="org.apache.log4j.xml">
+	  <priority value="info" /> 
+	</category>
+
+<!-- default autopipes classes logging level -->
+	<category name="org.autopipes">
+	  <priority value="debug" /> 
+   	  <appender-ref ref="STDOUT" />
+	</category>
+
+
+<!-- everything else is logged at info verbosity -->
+	<root>
+	   <priority value ="info" />
+   	   <appender-ref ref="STDOUT" />
+	</root>
+
+</log4j:configuration>

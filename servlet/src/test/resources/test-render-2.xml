@@ -1,0 +1,12 @@
+<dwg:render-dwg xmlns:dwg="http://dwg.autopipes.org">
+<dwg-id xmlns="http://dwg.autopipes.org">121</dwg-id>
+<area-id xmlns="http://dwg.autopipes.org">3</area-id>
+<branch-labels xmlns="http://dwg.autopipes.org">true</branch-labels>
+<main-labels xmlns="http://dwg.autopipes.org">true</main-labels>
+<branch-breakups xmlns="http://dwg.autopipes.org">true</branch-breakups>
+<main-breakups xmlns="http://dwg.autopipes.org">true</main-breakups>
+<main-diameters xmlns="http://dwg.autopipes.org">true</main-diameters>
+<branch-diameters xmlns="http://dwg.autopipes.org">true</branch-diameters>
+<main-spans xmlns="http://dwg.autopipes.org">true</main-spans>
+<branch-spans xmlns="http://dwg.autopipes.org">true</branch-spans>
+</dwg:render-dwg>

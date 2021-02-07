@@ -1,0 +1,8 @@
+<dwg:area-root xmlns:dwg="http://dwg.autopipes.org">
+  <dwg-id xmlns="http://dwg.autopipes.org">21</dwg-id>
+  <area-body xmlns="http://dwg.autopipes.org">
+    <dwg-entity cls="AcDbCircle" id="2130091784" ly="Branches"><ent-size h="7.82524832894767"/><ent-start x="-133.943667590626" y="56.535200163959"/></dwg-entity>
+    <dwg-entity cls="AcDbLine" id="2130091776" ly="ML"><ent-start x="-8.93368262229399" y="56.535200163959"/><ent-end x="-8.933682622294" y="4.55998967138873"/></dwg-entity>
+    <dwg-entity cls="AcDbLine" id="2130091768" ly="BL"><ent-start x="-133.943667590626" y="56.535200163959"/><ent-end x="-8.93368262229399" y="56.535200163959"/></dwg-entity>
+  </area-body>
+</dwg:area-root>

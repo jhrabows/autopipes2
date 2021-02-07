@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<!-- Except where noted, this file may be edited to control verbosity of the trace. -->
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+           <layout class="org.apache.log4j.PatternLayout">
+             <param name="ConversionPattern"
+		    value="%-4r %-5p [%t] %c - %m%n"/>
+           </layout>	    
+	</appender>
+
+<!-- 
+  The autopipes application requires its appender to have the name 'WEBLOG', 
+  to have a 'File' parameter and to use the 'XMLLayout' class.
+  Other parameters may be altered.
+  Note that the file name may include any java property, encoded as ${propertyname}
+-->
+	<appender name="WEBLOG" class="org.apache.log4j.RollingFileAppender">
+        <param name="File"   value="${user.home}${file.separator}autopipes.log" />
+        <param name="Append" value="false" />	    	
+        <param name="MaxFileSize" value="10MB" />	
+	  <param name="MaxBackupIndex" value="5" />    	
+        <layout class="org.apache.log4j.xml.XMLLayout"/>
+	</appender>
+	
+<!-- information related to the logging infrastructure -->
+	<category name="org.apache.log4j.xml">
+	  <priority value="info" /> 
+	</category>
+
+<!-- default autopipes classes logging level -->
+	<category name="org.autopipes">
+	  <priority value="debug" /> 
+   	  <appender-ref ref="WEBLOG" />
+	</category>
+
+
+<!-- everything else is logged at error verbosity -->
+	<root>
+	   <priority value ="error" />
+   	   <appender-ref ref="STDOUT" />
+	</root>
+
+</log4j:configuration>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+  xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+    http://www.directwebremoting.org/schema/spring-dwr
+    http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd">
+
+
+<!-- Service endpoint -->
+  <bean id="cadEndpoint" class="org.autopipes.springws.CadEndpoint">
+        <property name="storageService" ref="storageService"/>
+        <property name="analyzerService" ref="analyzerService"/>
+        <property name="reportingService" ref="reportingService"/>
+        
+        <dwr:remote javascript="Autopipes">
+        	<dwr:include method="getBranchInfoForArea"/>
+        	<dwr:include method="getMainThreadedList"/>
+        	<dwr:include method="getMainGroovedList"/>
+        	<dwr:include method="getMainWeldedList"/>
+        </dwr:remote>
+  </bean>
+    
+<!-- Service -->
+  <bean id="storageService" class="org.autopipes.service.JdbcStorageService" init-method="init">
+    <property name="dataSource" ref="dataSource"/>
+    <property name="schema" value="${jdbc.schema}"/>
+    <property name="schemaSeparator" value="${jdbc.schema.separator}"/>
+    <property name="marshaller" ref="jaxb2Marshaller"/>
+    <property name="unmarshaller" ref="jaxb2Marshaller"/>
+    
+    <dwr:remote javascript="Storage">
+        <dwr:include method="findAllDrawings"/>
+        <dwr:include method="findDrawingAreas"/>
+        <dwr:include method="findOneDrawing"/>
+        <dwr:include method="findOneDrawingArea"/>
+        <dwr:include method="deleteDrawing"/>
+        <dwr:include method="deleteArea"/>
+    </dwr:remote>
+  </bean>
+
+  <bean id="analyzerService" class="org.autopipes.service.AnalyzerService">
+    <property name="planeGeo" ref="planeGeo"/>
+    <property name="takeout" ref="takeoutRepo"/>
+    <property name="fittingFactory" ref="fittingFactory"/>
+    <property name="pipeConfig" ref="pipeConfig"/>
+  </bean>
+  
+  <bean id="fittingFactory" class="org.autopipes.takeout.Fitting$Factory" >
+    <property name="takeout" ref="takeoutRepo"/>
+  </bean>
+
+  <bean id="reportingService" class="org.autopipes.service.ReportingService">
+      <property name="pipeConfig" ref="pipeConfig"/>
+      <property name="planeGeo" ref="planeGeo"/>
+  </bean>
+
+  <bean id="planeGeo" class="org.autopipes.util.PlaneGeo">
+     <property name="linearTolerance"><value type="java.lang.Double">0.5</value></property>
+     <property name="angularTolerance"><value type="java.lang.Double">0.05</value></property>
+     <property name="pointClass"><value type="java.lang.Class">org.autopipes.model.DwgPoint</value></property>
+  </bean>
+
+  <bean id="takeoutRepo" factory-bean="resourceReader" factory-method="read" init-method="initLookup">
+    <constructor-arg value="WEB-INF/takeoutrepo.xml"/>
+  </bean>
+
+<!-- Defines marshalling for service arguments -->
+    <bean class="org.springframework.ws.server.endpoint.adapter.GenericMarshallingMethodEndpointAdapter">
+        <constructor-arg ref="jaxb2Marshaller"/>
+    </bean>
+
+<!-- Annotation-based mapping and interceptors -->
+    <bean class="org.springframework.ws.server.endpoint.mapping.PayloadRootAnnotationMethodEndpointMapping">
+        <property name="interceptors">
+            <list>
+                <ref bean="loggingInterceptor"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="loggingInterceptor"
+    class="org.springframework.ws.soap.server.endpoint.interceptor.SoapEnvelopeLoggingInterceptor"/>
+
+  <bean id="resourceReader" class="org.autopipes.util.OxmResourceReader">
+    <constructor-arg ref="jaxb2Marshaller"/>
+    <constructor-arg ref="jaxb2Marshaller"/>
+  </bean>
+  
+<!-- Jaxb2 configuration: list of application classes -->
+    <bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+        <property name="classesToBeBound">
+            <list>
+                <value>org.autopipes.takeout.TakeoutRepository</value>
+                <value>org.autopipes.model.FloorDrawing</value>
+                <value>org.autopipes.model.DrawingLayer</value>
+                <value>org.autopipes.model.DrawingOptions</value>
+                <value>org.autopipes.model.DrawingArea</value>
+                <value>org.autopipes.model.AreaBody</value>
+                <value>org.autopipes.model.RenderDwg</value>
+            </list>
+        </property>
+        <property name="marshallerProperties">
+            <map>
+                <entry key = "jaxb.formatted.output">
+                    <value type="java.lang.Boolean">true</value>
+                </entry>
+            </map>
+        </property>
+    </bean>
+  
+<!-- Jndi data source -->
+  <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName"  value="java:comp/env/jdbc/OracleDS"  />
+  </bean>
+
+<!-- Property file for connectivity and location of Schema DDL file -->
+  <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="location" value="WEB-INF/jdbc.properties"/>
+  </bean>
+
+</beans>

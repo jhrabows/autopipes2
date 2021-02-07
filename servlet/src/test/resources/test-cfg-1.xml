@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:dwg-root xmlns:ns2="http://dwg.autopipes.org">
+    <ns2:dwg-name>dwg1</ns2:dwg-name>
+    <ns2:dwg-text-size>5.0</ns2:dwg-text-size>
+    <ns2:dwg-update-date>2008-01-01T20:49:37.254-05:00</ns2:dwg-update-date>
+    <ns2:options-root>
+        <ns2:linear-delta>0.0</ns2:linear-delta>
+        <ns2:angular-delta>0.1</ns2:angular-delta>
+        <ns2:short-pipe>0.0</ns2:short-pipe>
+        <ns2:long-pipe>10.0</ns2:long-pipe>
+        <ns2:main-cut-space>1.0</ns2:main-cut-space>
+        <ns2:main-cut-list>
+            <ns2:main-cut>7.0</ns2:main-cut>
+            <ns2:main-cut>6.0</ns2:main-cut>
+        </ns2:main-cut-list>
+        <ns2:branch-cut-list>
+            <ns2:branch-cut>5.0</ns2:branch-cut>
+        </ns2:branch-cut-list>
+        <ns2:main-count-start>10</ns2:main-count-start>
+        <ns2:branch-count-start>0</ns2:branch-count-start>
+        <ns2:layers-root>
+            <ns2:layer vendor="VIC" type="Main" sub-type="grooved" name="ML" hole-diameter="D2" main-diameter="D4"/>
+            <ns2:layer vendor="VIC" type="Branch" sub-type="threaded" name="BL" hole-diameter="D2" main-diameter="D4">
+                <ns2:headcount>
+                    <entry>
+                        <key>1</key>
+                        <value>D2</value>
+                    </entry>
+                </ns2:headcount>
+            </ns2:layer>
+        </ns2:layers-root>
+    </ns2:options-root>
+</ns2:dwg-root>

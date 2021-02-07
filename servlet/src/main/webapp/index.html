@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+  <title>Auto Pipes</title>
+  <script type='text/javascript' src='/autopipes/dwr/interface/Storage.js'></script>
+  <script type='text/javascript' src='/autopipes/dwr/interface/Autopipes.js'></script>
+  <script type='text/javascript' src='/autopipes/dwr/engine.js'></script>
+  <script type='text/javascript' src='/autopipes/dwr/util.js'></script>
+  <script type="text/javascript" src="index.js"></script>
+</head>
+<body onload="javascript:init();">
+<h1>Auto Pipes</h1>
+<p>Framework for Processing Sprinkler Drawings</p>
+<table>
+  <tr>
+    <td>
+      <label for="drawing">Drawing:</label>
+    </td>
+    <td>
+      <select id="drawing" onchange="javascript:processChangeDrawing();"/>
+    </td>
+    <td>
+      <button onclick="javascript:deleteDrawing()">Delete</button>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <label for="area">Area:</label><br/>
+      <div id="readiness"/>
+    </td>
+    <td>
+      <select id="area" onchange="javascript:processChangeArea();"></select>
+    </td>
+    <td>
+       <button onclick="javascript:deleteArea()">Delete</button>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <label for="csType">For:</label>
+    </td>
+    <td>
+      <select id="csType" >
+	      <option value="BR">Branches</option>
+	      <option value="THM">Threaded Main</option>
+	      <option value="GRM">Grooved Main</option>
+	      <option value="GRM_Y">Grooved Main (RTL)</option>
+	      <option value="WDM">Welded Main</option>
+	      <option value="WDM_Y">Welded Main (RTL)</option>
+      </select>
+    </td>
+    <td>
+      <button onclick="javascript:processCutSheet('false');">Cut-Sheet</button>
+      <button onclick="javascript:processCutSheet('true');">(Debug)</button>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
