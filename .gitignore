@@ -1,6 +1,15 @@
 # Compiled class file
 *.class
 
+# Eclipse
+.project
+.classpath
+.settings
+
+# Maven
+target
+.flattened-pom.xml
+
 # Log file
 *.log
 

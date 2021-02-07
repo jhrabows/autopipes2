@@ -4,8 +4,18 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.autopipes</groupId>
   <artifactId>parent</artifactId>
-  <version>2.0</version>
+  <version>${revision}</version>
   <packaging>pom</packaging>
+  <name>AutoPipes Parent Project Settings</name>
+  
+  <properties>
+	<revision>2.0</revision>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<project.build.reportEncoding>UTF-8</project.build.reportEncoding>
+	<!-- 	<spring.version>3.2.9.RELEASE</spring.version>  -->
+	<spring.version>2.5</spring.version>
+
+  </properties>
  
   <dependencyManagement>
     <dependencies>
@@ -61,13 +71,13 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring</artifactId>
-        <version>2.5</version>
+        <version>${spring.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-context</artifactId>
-        <version>2.5</version>
+        <version>${spring.version}</version>
         <exclusions>
           <exclusion>
             <artifactId>servlet-api</artifactId>
@@ -85,44 +95,44 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-tx</artifactId>
-        <version>2.5</version>
+        <version>${spring.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-jdbc</artifactId>
-        <version>2.5</version>
+        <version>${spring.version}</version>
       </dependency>
 
 
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-core</artifactId>
-        <version>2.5</version>
+        <version>${spring.version}</version>
       </dependency>
 
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-beans</artifactId>
-        <version>2.5</version>
+        <version>${spring.version}</version>
       </dependency>
 
      <dependency>
        <groupId>org.springframework</groupId>
        <artifactId>spring-aop</artifactId>
-        <version>2.5</version>
+        <version>${spring.version}</version>
      </dependency>
 
      <dependency>
        <groupId>org.springframework</groupId>
        <artifactId>spring-web</artifactId>
-        <version>2.5</version>
+        <version>${spring.version}</version>
      </dependency>
 
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-test</artifactId>
-        <version>2.5</version>
+        <version>${spring.version}</version>
 
         <scope>test</scope>
 
@@ -197,6 +207,70 @@
 
     </dependencies>
   </dependencyManagement>
+  
+  <build>
+  	<plugins>
+		    <plugin>
+		    	<!-- dereferencing of revision placeholders  -->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>flatten-maven-plugin</artifactId>
+				<configuration>
+					<updatePomFile>true</updatePomFile>
+					<flattenMode>resolveCiFriendliesOnly</flattenMode>
+				</configuration>
+				<executions>
+					<execution>
+						<id>flatten</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>flatten</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>flatten.clean</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+					</execution>
+				</executions>
+		    </plugin>
+		    
+			<plugin>
+			  <artifactId>maven-checkstyle-plugin</artifactId>
+			  <executions>
+			    <execution>
+			      <id>validate</id>
+			      <phase>validate</phase>
+			      <configuration>
+			      	<configLocation>checkstyle.xml</configLocation>
+			        <encoding>UTF-8</encoding>
+			        <consoleOutput>true</consoleOutput>
+			        <failsOnError>true</failsOnError>
+			        <linkXRef>false</linkXRef>
+			      </configuration>
+			      <goals>
+			        <goal>check</goal>
+			      </goals>
+			    </execution>
+			  </executions>
+			</plugin> 	
+  	</plugins>
+  	
+  	<pluginManagement>
+		<plugin>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>flatten-maven-plugin</artifactId>
+			<version>1.1.0</version>
+		</plugin>
+		<plugin>
+			<artifactId>maven-checkstyle-plugin</artifactId>
+			<version>3.0.0</version>
+		</plugin>
+  	</pluginManagement>
+  	
+  </build>
+
 
 </project>
    

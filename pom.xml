@@ -4,15 +4,281 @@
 
 	<artifactId>autopipes-top</artifactId>
 	<groupId>org.autopipes</groupId>
-	<version>2.0</version>
+	<version>${revision}</version>
 	<packaging>pom</packaging>
 	<name>autopipes-top</name>
 
 	<modules>
-		<module>parent</module>
+<!--		<module>parent</module>    -->
 		<module>takeout</module>
 		<module>core</module>
 		<module>servlet</module>
 	</modules>
+	
+  <properties>
+	<revision>2.0</revision>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<project.build.reportEncoding>UTF-8</project.build.reportEncoding>
+	<!-- 	<spring.version>3.2.9.RELEASE</spring.version>  -->
+	<spring.version>2.5</spring.version>
+
+  </properties>
+ 
+  <dependencyManagement>
+    <dependencies>
+
+      <dependency>
+        <groupId>org.autopipes</groupId>
+        <artifactId>takeout</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.autopipes</groupId>
+        <artifactId>autopipes-core</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>1.2.13</version>
+      </dependency>
+
+      <dependency>
+        <groupId>commons-logging</groupId>
+        <artifactId>commons-logging</artifactId>
+        <version>1.1</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>avalon-framework</artifactId>
+            <groupId>avalon-framework</groupId>
+          </exclusion>
+          <exclusion>
+            <artifactId>logkit</artifactId>
+            <groupId>logkit</groupId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.4</version>
+        <scope>test</scope>
+      </dependency>
+
+    <dependency>
+      <artifactId>servlet-api</artifactId>
+      <groupId>javax.servlet</groupId>
+      <version>2.4</version>
+      <scope>provided</scope>
+    </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>${spring.version}</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>servlet-api</artifactId>
+            <groupId>javax.servlet</groupId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+
+    <dependency>
+      <groupId>javax.persistence</groupId>
+      <artifactId>persistence-api</artifactId>
+      <version>1.0</version>
+    </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-tx</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-core</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-beans</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+     <dependency>
+       <groupId>org.springframework</groupId>
+       <artifactId>spring-aop</artifactId>
+        <version>${spring.version}</version>
+     </dependency>
+
+     <dependency>
+       <groupId>org.springframework</groupId>
+       <artifactId>spring-web</artifactId>
+        <version>${spring.version}</version>
+     </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+        <version>${spring.version}</version>
+
+        <scope>test</scope>
+
+      </dependency>
+
+
+      <dependency>
+        <groupId>org.springframework.ws</groupId>
+        <artifactId>spring-oxm-tiger</artifactId>
+        <version>1.0.2</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.ws</groupId>
+        <artifactId>spring-ws-core-tiger</artifactId>
+        <version>1.0.2</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.wicket</groupId>
+        <artifactId>wicket</artifactId>
+        <version>1.3.0</version>
+      </dependency>
+    
+      <dependency>
+        <groupId>org.apache.wicket</groupId>
+        <artifactId>wicket-datetime</artifactId>
+        <version>1.3.0</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.wicket</groupId>
+        <artifactId>wicket-spring</artifactId>
+        <version>1.3.0</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>spring</artifactId>
+            <groupId>org.springframework</groupId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.wicket</groupId>
+        <artifactId>wicket-spring-annot</artifactId>
+        <version>1.3.0</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>spring</artifactId>
+            <groupId>org.springframework</groupId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+    
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-log4j12</artifactId>
+        <version>1.4.2</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.directwebremoting</groupId>
+        <artifactId>dwr</artifactId>
+        <version>2.0.2</version>
+      </dependency>
+
+    <dependency>
+      <groupId>org.jgrapht</groupId>
+      <artifactId>jgrapht-jdk1.5</artifactId>
+      <version>0.7.3</version>
+    </dependency>
+
+    </dependencies>
+  </dependencyManagement>
+  
+  <build>
+  	<plugins>
+		    <plugin>
+		    	<!-- dereferencing of revision placeholders  -->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>flatten-maven-plugin</artifactId>
+				<configuration>
+					<updatePomFile>true</updatePomFile>
+					<flattenMode>resolveCiFriendliesOnly</flattenMode>
+				</configuration>
+				<executions>
+					<execution>
+						<id>flatten</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>flatten</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>flatten.clean</id>
+						<phase>clean</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+					</execution>
+				</executions>
+		    </plugin>
+		    
+			<plugin>
+			  <artifactId>maven-checkstyle-plugin</artifactId>
+			  <executions>
+			    <execution>
+			      <id>validate</id>
+			      <phase>validate</phase>
+			      <configuration>
+			      	<configLocation>checkstyle.xml</configLocation>
+			        <encoding>UTF-8</encoding>
+			        <consoleOutput>true</consoleOutput>
+			        <failsOnError>true</failsOnError>
+			        <linkXRef>false</linkXRef>
+			      </configuration>
+			      <goals>
+			        <goal>check</goal>
+			      </goals>
+			    </execution>
+			  </executions>
+			</plugin> 	
+  	</plugins>
+  	
+  	<pluginManagement>
+	  	<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>flatten-maven-plugin</artifactId>
+				<version>1.1.0</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>3.0.0</version>
+			</plugin>
+		</plugins>
+  	</pluginManagement>
+  	
+  </build>
+
  
 </project>

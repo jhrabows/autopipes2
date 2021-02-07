@@ -1,6 +1,5 @@
 package org.autopipes.model;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,9 +16,7 @@ import org.apache.log4j.Logger;
 import org.autopipes.model.AreaCutSheet.BranchInfo;
 import org.autopipes.model.AreaCutSheet.CutSheetInfo;
 import org.autopipes.model.AreaCutSheet.EdgeMultiplicity;
-import org.autopipes.model.AreaCutSheet.MainCutSheetInfo;
 import org.autopipes.model.DrawingLayer.Designation;
-import org.autopipes.takeout.Diameter;
 
 /**
  * Jaxb bean which contains information about an area within a drawing.
