@@ -72,4 +72,9 @@ public class JaxbSqlParameterSource implements SqlParameterSource {
 		return ms.hasValue(paramName);
 	}
 
+	@Override
+	public String getTypeName(String paramName) {
+		return ms.getTypeName(paramName);
+	}
+
 }
