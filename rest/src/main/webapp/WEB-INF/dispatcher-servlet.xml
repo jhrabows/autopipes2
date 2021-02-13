@@ -12,5 +12,52 @@
 
 	<context:component-scan base-package="org.autopipes" />
 	<mvc:annotation-driven />
-		
+	
+<!-- Service endpoint 
+  <bean id="jsonResponseController" class="org.autopipes.controller.JsonResponseController">
+        <property name="storageService" ref="storageService"/>
+  </bean>
+-->
+
+  <bean id="storageService" class="org.autopipes.service.JdbcStorageService" init-method="init">
+    <property name="dataSource" ref="dataSource"/>
+    <property name="schema" value="${jdbc.schema}"/>
+    <property name="schemaSeparator" value="${jdbc.schema.separator}"/>
+    <property name="marshaller" ref="jaxb2Marshaller"/>
+    <property name="unmarshaller" ref="jaxb2Marshaller"/>
+    
+  </bean>
+
+
+<!-- Jaxb2 configuration: list of application classes -->
+    <bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+        <property name="classesToBeBound">
+            <list>
+                <value>org.autopipes.takeout.TakeoutRepository</value>
+                <value>org.autopipes.model.FloorDrawing</value>
+                <value>org.autopipes.model.DrawingLayer</value>
+                <value>org.autopipes.model.DrawingOptions</value>
+                <value>org.autopipes.model.DrawingArea</value>
+                <value>org.autopipes.model.AreaBody</value>
+                <value>org.autopipes.model.RenderDwg</value>
+            </list>
+        </property>
+        <property name="marshallerProperties">
+            <map>
+                <entry key = "jaxb.formatted.output">
+                    <value type="java.lang.Boolean">true</value>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+  <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName"  value="java:comp/env/jdbc/OracleDS"  />
+  </bean>
+
+<!-- Property file for connectivity and location of Schema DDL file -->
+  <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="location" value="WEB-INF/jdbc.properties"/>
+  </bean>
+
 </beans>
