@@ -4,60 +4,71 @@
 	<groupId>org.autopipes</groupId>
 	<artifactId>autorest</artifactId>
 	<packaging>war</packaging>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>Autopipes REST services</name>
 	<url>http://maven.apache.org</url>
 	
+  <parent>
+    <artifactId>autopipes-top</artifactId>
+    <groupId>org.autopipes</groupId>
+    <version>${revision}</version>
+  </parent>
+
+	
 	<properties>
-<!-- 		<spring.version>4.0.1.RELEASE</spring.version>   -->
-		<spring.version>3.0.0.RELEASE</spring.version>
 	</properties>
 	
 	<dependencies>
 	    <dependency>
 	      <groupId>org.autopipes</groupId>
 	      <artifactId>autopipes-core</artifactId>
-	      <version>2.0</version>
 	    </dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>${spring.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
+	<dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+      </dependency>
+      <!-- 
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-databind</artifactId>
+	</dependency>
+	
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-core</artifactId>
+	</dependency>
+	
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-annotations</artifactId>
+	</dependency>
+		 	 -->
+
 		<dependency>
 		   <groupId>org.codehaus.jackson</groupId>
 		   <artifactId>jackson-mapper-asl</artifactId>
 		   <version>1.9.10</version>
 		 </dependency>	
-	<dependency>
-        <groupId>log4j</groupId>
-        <artifactId>log4j</artifactId>
-        <version>1.2.13</version>
-      </dependency>
-		 	
+
+
 	</dependencies>
 
 	<build>
