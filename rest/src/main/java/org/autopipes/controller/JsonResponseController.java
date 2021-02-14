@@ -3,12 +3,14 @@ package org.autopipes.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.autopipes.model.DrawingArea;
 import org.autopipes.model.Employee;
 import org.autopipes.model.FloorDrawing;
 import org.autopipes.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,6 +26,11 @@ public class JsonResponseController {
 	@RequestMapping(value = "/drawing", method = RequestMethod.GET) //, produces = "application/json")
 	public @ResponseBody List<FloorDrawing> getAllDrawings() {
 		return storageService.findAllDrawings();
+	}
+	
+	@RequestMapping(value = "/drawing/{dwgId}/area", method = RequestMethod.GET) //, produces = "application/json")
+	public @ResponseBody List<DrawingArea> getDrawingAreas(@PathVariable long dwgId) {
+		return storageService.findDrawingAreas(dwgId);
 	}
 	
 	@RequestMapping(value = "/employees", method = RequestMethod.GET) //, produces = "application/json")
