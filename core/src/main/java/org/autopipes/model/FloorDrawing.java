@@ -9,6 +9,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 	/**
 	 * Jaxb bean which contains information which applies to the entire drawing.
 	 * It is used in passing messages between AuoCAD client and the Autopipes servlet.
@@ -30,6 +32,7 @@ import javax.xml.bind.annotation.XmlType;
 	    @XmlElement(name = "dwg-text-size")
 	    protected Double dwgTextSize;
 	    @XmlElement(name = "dwg-update-date")
+	    @JsonIgnore // TODO: this should not be ignored but TS generator chokes on Calendar. Should change to Date
 	    protected Calendar dwgUpdateDate;
 	    @XmlElement(name = "options-root")
 	    protected DrawingOptions optionsRoot;
