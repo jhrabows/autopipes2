@@ -33,21 +33,36 @@ public class JdbcStorageService  implements StorageService  {
       private Marshaller marshaller;
       private Unmarshaller unmarshaller;
 	
-    @Value("classpath:/rest/findAllDrawings.json")
-    private Resource findAllDrawingsJSON;
+      @Value("classpath:/rest/findAllDrawings.json")
+      private Resource allDrawings;
+      @Value("classpath:/rest/test2joe/findDrawingAreas.json")
+      private Resource test2joeAreas;
 
 	@Override
 	public List<FloorDrawing> findAllDrawings(){
 		List<FloorDrawing> ret = new ArrayList<>();
-		String json = getResourceAsString(findAllDrawingsJSON);
+		String json = getResourceAsString(allDrawings);
 		try {	
-			ret = (List<FloorDrawing>) getObjectFromJSONList(json);
+			ret = (List<FloorDrawing>) getObjectFromJSONList(json, FloorDrawing.class);
 			logger.info("Found " + ret.size() + " drawings");
 		} catch (IOException e) {
 			logger.error("Cannot find drawings", e);
 		}
 		return ret;
 	}
+	@Override
+	public List<DrawingArea> findDrawingAreas(Long dwgId) {
+		List<DrawingArea> ret = new ArrayList<>();
+		String json = getResourceAsString(test2joeAreas);
+		try {	
+			ret = (List<DrawingArea>) getObjectFromJSONList(json, DrawingArea.class);
+			logger.info("Found " + ret.size() + " areas");
+		} catch (IOException e) {
+			logger.error("Cannot find areas for dwgId:" + dwgId, e);
+		}
+		return ret;
+	}
+
 
 	@Override
 	public FloorDrawing findOneDrawing(Long id) {
@@ -79,11 +94,6 @@ public class JdbcStorageService  implements StorageService  {
 		return null;
 	}
 
-	@Override
-	public List<DrawingArea> findDrawingAreas(Long dwgId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public DrawingArea findOneDrawingArea(Long dwgId, Long areaId, boolean withBody, boolean withCutSheet) {
@@ -114,10 +124,11 @@ public class JdbcStorageService  implements StorageService  {
   	  Source s = new StreamSource(r);
   	  return unmarshaller.unmarshal(s);
 	}
-	public Object getObjectFromJSONList(String src) throws JsonParseException, JsonMappingException, IOException {
+	
+	public Object getObjectFromJSONList(String src, Class<?> elementClass) throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		JavaType type = mapper.getTypeFactory().
-				  constructCollectionType(List.class, FloorDrawing.class);
+				  constructCollectionType(List.class, elementClass);
 		return mapper.readValue(src, type);
 	}
 	

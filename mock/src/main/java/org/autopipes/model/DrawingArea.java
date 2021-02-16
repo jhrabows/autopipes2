@@ -17,6 +17,7 @@ import org.autopipes.model.AreaCutSheet.BranchInfo;
 import org.autopipes.model.AreaCutSheet.CutSheetInfo;
 import org.autopipes.model.AreaCutSheet.EdgeMultiplicity;
 import org.autopipes.model.DrawingLayer.Designation;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  * Jaxb bean which contains information about an area within a drawing.
@@ -89,6 +90,7 @@ public class DrawingArea {
     @XmlElement(name = "defect-count", required = true)
     protected int defectCount;
     @XmlElement(name = "area-body")
+    @JsonIgnore // TODO: org.codehaus.jackson.map.JsonMappingException: Can not find a (Map) Key deserializer for type [simple type, class org.autopipes.model.PipeFitting
     protected AreaBody areaBody;
     @XmlElement(name = "area-cut-sheet")
     protected AreaCutSheet areaCutSheet;

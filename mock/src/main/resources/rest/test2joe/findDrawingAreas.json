@@ -1,0 +1,34 @@
+[
+  {
+    "drawingId": 903,
+    "areaId": 1,
+    "areaName": "Area-1",
+    "areaOptions": null,
+    "areaReadiness": "Empty",
+    "defectCount": 0,
+    "areaBody": null,
+    "areaCutSheet": {
+      "branchMap": {},
+      "mainThreadedList": [],
+      "mainGroovedList": [],
+      "mainWeldedList": []
+    },
+    "rendering": []
+  },
+  {
+    "drawingId": 903,
+    "areaId": 2,
+    "areaName": "Area-2",
+    "areaOptions": null,
+    "areaReadiness": "Ready",
+    "defectCount": 0,
+    "areaBody": null,
+    "areaCutSheet": {
+      "branchMap": {},
+      "mainThreadedList": [],
+      "mainGroovedList": [],
+      "mainWeldedList": []
+    },
+    "rendering": []
+  }
+]
