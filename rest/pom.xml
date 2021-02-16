@@ -12,16 +12,49 @@
     <groupId>org.autopipes</groupId>
     <version>${revision}</version>
   </parent>
+  
+  <properties>
+  	<autopipes.storage>jdbc</autopipes.storage>
+  </properties>
+  
+  <profiles>
+  	<profile>
+  	<id>jdbc</id>
+    <activation>
+      <activeByDefault>true</activeByDefault>
+    </activation>
 
-	
-	<properties>
-	</properties>
-	
-	<dependencies>
+  	<dependencies>
 	    <dependency>
 	      <groupId>org.autopipes</groupId>
 	      <artifactId>autopipes-core</artifactId>
 	    </dependency>
+  	</dependencies>
+	<build>
+		<finalName>autorest-jdbc</finalName>
+	</build>
+  	
+  	</profile>
+  	
+  	
+  	<profile>
+  	<id>mock</id>
+  	
+  	<dependencies>
+	    <dependency>
+	      <groupId>org.autopipes</groupId>
+	      <artifactId>autopipes-mock</artifactId>
+	    </dependency>
+  	</dependencies>
+	<build>
+		<finalName>autorest-mock</finalName>
+	</build>
+  	</profile>
+
+  </profiles>
+
+	
+	<dependencies>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -41,37 +74,16 @@
 			<artifactId>servlet-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-	<dependency>
-        <groupId>log4j</groupId>
-        <artifactId>log4j</artifactId>
-      </dependency>
-      <!-- 
-	<dependency>
-	    <groupId>com.fasterxml.jackson.core</groupId>
-	    <artifactId>jackson-databind</artifactId>
-	</dependency>
+		<dependency>
+	        <groupId>log4j</groupId>
+	        <artifactId>log4j</artifactId>
+	      </dependency>
 	
-	<dependency>
-	    <groupId>com.fasterxml.jackson.core</groupId>
-	    <artifactId>jackson-core</artifactId>
-	</dependency>
-	
-	<dependency>
-	    <groupId>com.fasterxml.jackson.core</groupId>
-	    <artifactId>jackson-annotations</artifactId>
-	</dependency>
-		 	 -->
-
 		<dependency>
 		   <groupId>org.codehaus.jackson</groupId>
 		   <artifactId>jackson-mapper-asl</artifactId>
-		   <version>1.9.10</version>
 		 </dependency>	
-
 
 	</dependencies>
 
-	<build>
-		<finalName>autorest</finalName>
-	</build>
 </project>
