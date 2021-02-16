@@ -37,6 +37,8 @@ public class JdbcStorageService  implements StorageService  {
       private Resource allDrawings;
       @Value("classpath:/rest/test2joe/findDrawingAreas.json")
       private Resource test2joeAreas;
+      @Value("classpath:/rest/test2joe/area1/findOneDrawingArea.json")
+      private Resource test2joeArea1;
 
 	@Override
 	public List<FloorDrawing> findAllDrawings(){
@@ -63,11 +65,24 @@ public class JdbcStorageService  implements StorageService  {
 		return ret;
 	}
 
+	@Override
+	public DrawingArea findOneDrawingArea(Long dwgId, Long areaId, boolean withBody, boolean withCutSheet) {
+		DrawingArea ret = new DrawingArea();
+		String json = getResourceAsString(test2joeArea1);
+		try {	
+			ret = (DrawingArea) getObjectFromJSON(json, DrawingArea.class);
+			logger.info("Found " + (ret==null?"Null":"") + "area");
+		} catch (IOException e) {
+			logger.error("Cannot find area for dwgId:" + dwgId + ", id:" + areaId, e); 
+		}
+		return ret;
+	}
 
 	@Override
 	public FloorDrawing findOneDrawing(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		FloorDrawing ret = new FloorDrawing();
+		ret.setId(id);
+		return ret ;
 	}
 
 	@Override
@@ -94,12 +109,6 @@ public class JdbcStorageService  implements StorageService  {
 		return null;
 	}
 
-
-	@Override
-	public DrawingArea findOneDrawingArea(Long dwgId, Long areaId, boolean withBody, boolean withCutSheet) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public Long findAreaId(Long drawingId, String areaName) {
@@ -130,6 +139,10 @@ public class JdbcStorageService  implements StorageService  {
 		JavaType type = mapper.getTypeFactory().
 				  constructCollectionType(List.class, elementClass);
 		return mapper.readValue(src, type);
+	}
+	public Object getObjectFromJSON(String src, Class<?> objectClass) throws JsonParseException, JsonMappingException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		return mapper.readValue(src, objectClass);
 	}
 	
     public String getResourceAsString(Resource resource){

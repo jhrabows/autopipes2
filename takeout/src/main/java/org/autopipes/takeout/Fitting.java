@@ -295,7 +295,7 @@ public class Fitting {
 	@XmlElement(name = "vendor")
 	private final Vendor vendor;
 	@XmlElement(name = "diameter")
-	private final Diameter[] diameters;
+	private Diameter[] diameters;
 	@XmlElement(name = "attachments")
 	private final Attachment[] attachments;
 
@@ -321,8 +321,14 @@ public class Fitting {
 		return (attachment == Attachment.mechanical
 				|| attachment == Attachment.welded || attachment == Attachment.weldedGroove);
 	}
+	public void setHoleBased(boolean holeBased) {
+		// read only
+	}
 	public boolean isCouplingContinuation(){
 		return type == Type.Coupling || type == Type.Reducer;
+	}
+	public void setCouplingContinuation(boolean couplingContinuation){
+	// read only property
 	}
 	/**
 	 * Default constructor for Jaxb
@@ -457,6 +463,13 @@ public class Fitting {
 	public List<Diameter> getDiameterList() {
 		List<Diameter> ret = Arrays.asList(diameters);
 		return hasEqualEnds() ? ret.subList(0, 1) : ret;
+	}
+	public void setDiameterList(List<Diameter> list) {
+		// to set from JSON (this may not correspond to the number of ends in fitting)
+		if(list != null ) {
+			diameters = new Diameter[list.size()];
+	        list.toArray(diameters);
+		}
 	}
 
 	@Override
