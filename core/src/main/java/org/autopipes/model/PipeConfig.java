@@ -10,6 +10,9 @@ import org.autopipes.model.AreaBody.HeadInfo;
  *
  */
 public class PipeConfig {
+	private static final String REDUCER = "reducer";
+	private static final String COUPLING = "coupling";
+	private static final String AREA = "AREA-CONFIG";
 	
 	// lookup table which matches block names with various head types
 	private Map<String, AreaBody.HeadInfo> headLookup;
@@ -29,23 +32,29 @@ public class PipeConfig {
     private String stdBlockName(final String blockName){
     	return blockName.replace(" ", "-").toLowerCase();
     }
+    
     public boolean isReducerBlock(String blockName){
     	String stdName = stdBlockName(blockName);
-    	return stdName.indexOf("reducer") >= 0;
+    	return stdName.indexOf(REDUCER) >= 0;
     }
+
+    public boolean isCouplingBlock(String blockName){
+    	return COUPLING.equalsIgnoreCase(blockName);
+    }
+    
+    public boolean isAreaBlock(String blockName){
+    	return AREA.equalsIgnoreCase(blockName);
+    }
+
     public boolean isKnownBlockName(String blockName){
-    	if(blockName == null){
-    		return false;
-    	}
-    	if(blockName.equalsIgnoreCase("AREA-CONFIG")){
-    		 return true;
-    	}
-    	String stdName = stdBlockName(blockName);
-    	if(stdName.indexOf("reducer") >= 0){
-    		return true;
-    	}
-    	if(getHeadLookup().containsKey(stdName)){
-    		return true;
+    	if(blockName != null){
+	    	if(isAreaBlock(blockName) || isReducerBlock(blockName) ||  isCouplingBlock(blockName)){
+	    		 return true;
+	    	}
+	    	String stdName = stdBlockName(blockName);
+	    	if(getHeadLookup().containsKey(stdName)){
+	    		return true;
+	    	}
     	}
     	return false;
     }

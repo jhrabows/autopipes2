@@ -774,9 +774,10 @@ public class AnalyzerService {
         	area.setAreaReadiness(Readiness.NotReady);
          }
         // Check connectivity (before adding Sink)
-    	if(area.getAreaBody().getCenters().size() > 1){
-            logger.info("-validateArea->Not connected");
-        	area.setAreaReadiness(Readiness.Disconnected);
+        int connectCnt = area.getAreaBody().getCenters().size();
+    	if(connectCnt != 1){
+            logger.info("-validateArea->" + (connectCnt != 0 ? "Not connected" : "No edges"));
+        	area.setAreaReadiness(connectCnt > 1 ? Readiness.Disconnected : Readiness.Empty);
     		return;
     	}
     	if(area.getAreaReadiness() != Readiness.Ready){
@@ -924,7 +925,20 @@ public class AnalyzerService {
 		            }else if(e.getCls() == AcClass.AcDbPoint){
 		            	info.getCouplings().add(e);
 		            }else if(e.getCls() == AcClass.AcDbBlockReference){
-		            	info.getBlocks().add(e);
+		            	String blockName = e.getName();
+		            	logger.info("Found Block");
+                    	if(!pipeConfig.isKnownBlockName(blockName)){
+    		            	logger.info("Unknown name="+blockName);
+        					info.setStatus(Defect.unknownBlock);
+                    		ret = false;
+                    	}else {
+                    		if(pipeConfig.isCouplingBlock(blockName)) {
+                    			info.getCouplings().add(e);
+                    		}else {
+        		            	info.getBlocks().add(e);                    			
+                    		}
+                    		
+                    	}
 		            }
     				// check homogenity
     				if((info.getHead() == null ? 0 : 1)
@@ -934,12 +948,6 @@ public class AnalyzerService {
     					info.setStatus(Defect.overlapingSymbols);
     					ret = false;
     				}
-                    if(info.getBlock() != null){
-                    	if(!pipeConfig.isKnownBlockName(info.getBlock().getName())){
-        					info.setStatus(Defect.unknownBlock);
-                    		ret = false;
-                    	}
-                    }
     			}
     		}
     	}

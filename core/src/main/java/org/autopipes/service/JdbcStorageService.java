@@ -125,6 +125,12 @@ public class JdbcStorageService implements StorageService {
 				return 0L;
 			  }
       }
+      
+	  public List<DrawingArea> findAllDrawingAreas(){
+		  String sql = "SELECT drawing_id, area_id, area_name, area_readiness, defect_count  FROM floor_area";
+		  ParameterizedRowMapper<DrawingArea> mapper = new AreaMapper();
+		  return sjt.query(sql, mapper);
+	  }
 
 	  public List<DrawingArea> findDrawingAreas(final Long dwgId){
 		  String sql = "SELECT drawing_id, area_id, area_name, area_readiness, defect_count  FROM floor_area where drawing_id=?";
@@ -219,10 +225,19 @@ public class JdbcStorageService implements StorageService {
 		  String sql = null;
 		  if(dwg.getId() == null){
 			  KeyHolder kh = new GeneratedKeyHolder();
-              sql = "INSERT INTO floor_drawing(name, text_size, upd_date, configuration)"
-					+ "values(:dwgName, :dwgTextSize, :dwgUpdateDate, :optionsRoot)";
-  		      npjt.update(sql, ps, kh, new String[] {"id"});
-  		      dwg.setId(kh.getKey().longValue());
+			  try {
+	              sql = "INSERT INTO floor_drawing(name, text_size, upd_date, configuration)"
+	  					+ "values(:dwgName, :dwgTextSize, :dwgUpdateDate, :optionsRoot)";
+	    		      npjt.update(sql, ps, kh, new String[] {"id"});				  
+			  }catch(Exception e) {
+				  logger.info("insert error", e);
+				  Long id = findDrawingId(dwg.getDwgName());
+				  logger.info("drawing id is " + id);
+				  if(id == null) {
+					  throw new Exception("Please retry");
+				  }
+				  dwg.setId(id);
+			  }
 		  }else{
 	          sql = "UPDATE floor_drawing SET"
 	            	+ " upd_date = :dwgUpdateDate"

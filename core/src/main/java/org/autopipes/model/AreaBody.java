@@ -593,7 +593,7 @@ public List<PipeFitting> subdivideGraph2(final PipeFitting piStart, final PipeFi
 	 */
 	public boolean orderBranchPipes(){
 		Set<DwgPoint> visited = new HashSet<DwgPoint>();
-		for(PipeFitting pf : pipeGraph.vertexSet()){
+		for(PipeFitting pf : getPipeGraph().vertexSet()){
             if(!isOnMain(pf)){
             	continue; // skip purely branch points
             }

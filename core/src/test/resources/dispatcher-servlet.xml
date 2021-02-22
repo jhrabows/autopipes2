@@ -6,18 +6,9 @@
         http://www.springframework.org/schema/beans     
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
         http://www.springframework.org/schema/context 
-        http://www.springframework.org/schema/context/spring-context-3.0.xsd
-        http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-	<context:component-scan base-package="org.autopipes" />
-	<mvc:annotation-driven />
-	
-<!-- Service endpoint -->
-  <bean id="jsonResponseController" class="org.autopipes.controller.JsonResponseController">
-        <property name="storageService" ref="storageService"/>
-  </bean>
-
+<context:component-scan base-package="org.autopipes" />
 
   <bean id="storageService" class="org.autopipes.service.JdbcStorageService" init-method="init">
     <property name="dataSource" ref="dataSource"/>
@@ -27,7 +18,32 @@
     <property name="unmarshaller" ref="jaxb2Marshaller"/>
     
   </bean>
+  
+  <bean id="analyzerService" class="org.autopipes.service.AnalyzerService">
+    <property name="planeGeo" ref="planeGeo"/>
+    <property name="takeout" ref="takeoutRepo"/>
+    <property name="fittingFactory" ref="fittingFactory"/>
+    <property name="pipeConfig" ref="pipeConfig"/>
+  </bean>
 
+  <bean id="fittingFactory" class="org.autopipes.takeout.Fitting$Factory" >
+    <property name="takeout" ref="takeoutRepo"/>
+  </bean>
+
+  <bean id="planeGeo" class="org.autopipes.util.PlaneGeo">
+     <property name="linearTolerance"><value type="java.lang.Double">0.5</value></property>
+     <property name="angularTolerance"><value type="java.lang.Double">0.05</value></property>
+     <property name="pointClass"><value type="java.lang.Class">org.autopipes.model.DwgPoint</value></property>
+  </bean>
+  
+  <bean id="takeoutRepo" factory-bean="resourceReader" factory-method="read" init-method="initLookup">
+    <constructor-arg value="takeoutrepo.xml"/>
+  </bean>
+
+  <bean id="resourceReader" class="org.autopipes.util.OxmResourceReader">
+    <constructor-arg ref="jaxb2Marshaller"/>
+    <constructor-arg ref="jaxb2Marshaller"/>
+  </bean>
 
 <!-- Jaxb2 configuration: list of application classes -->
     <bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
@@ -51,13 +67,19 @@
         </property>
     </bean>
 
-  <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName"  value="java:comp/env/jdbc/OracleDS"  />
-  </bean>
+  
+<bean id = "dataSource" class = "org.springframework.jdbc.datasource.DriverManagerDataSource">
+   <property name = "driverClassName" value = "oracle.jdbc.OracleDriver"/>
+   <property name = "url" value = "jdbc:oracle:thin:@localhost:1521:XE"/>
+   <property name = "username" value = "${jdbc.username}"/>
+   <property name = "password" value = "${jdbc.password}"/>
+</bean>
 
 <!-- Property file for connectivity and location of Schema DDL file -->
   <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-    <property name="location" value="WEB-INF/jdbc.properties"/>
+    <property name="location" value="jdbc.properties"/>
   </bean>
+  
+
 
 </beans>

@@ -1,0 +1,27 @@
+<dwg:dwg-root xmlns:dwg="http://dwg.autopipes.org">
+	<dwg-name xmlns="http://dwg.autopipes.org">test2-correct lengths</dwg-name>
+	<dwg-text-size xmlns="http://dwg.autopipes.org">6.5</dwg-text-size>
+	<dwg-update-date xmlns="http://dwg.autopipes.org">2021-02-19T21:20:32
+	</dwg-update-date>
+	<options-root xmlns="http://dwg.autopipes.org">
+		<layers-root>
+			<layer name="SPRK-CUTS" type="Output" />
+			<layer name="sprk-pmn" type="Main" sub-type="weldedGroove"
+				vendor="FIRELOCK" main-diameter="D2" />
+			<layer name="sprk-pbl-1q" type="Main" sub-type="weldedGroove"
+				vendor="FIRELOCK" main-diameter="D125" />
+			<layer name="sprk-pbl" type="Branch">
+				<headcount>
+					<entry xmlns="">
+						<key>1</key>
+						<value>D1</value>
+					</entry>
+				</headcount>
+			</layer>
+		</layers-root>
+		<error-color>Magenta</error-color>
+		<weld-if-equal>Y</weld-if-equal>
+		<abco-mode>N</abco-mode>
+	</options-root>
+	<dwg-id xmlns="http://dwg.autopipes.org">1</dwg-id>
+</dwg:dwg-root>

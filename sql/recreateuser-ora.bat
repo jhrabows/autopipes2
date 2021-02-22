@@ -1,1 +1,1 @@
-sqlplus "system/autopipes as SYSDBA" @recreateuser-ora.sql autopipes
+sqlplus "sys/autopipes as SYSDBA" @recreateuser-ora.sql test

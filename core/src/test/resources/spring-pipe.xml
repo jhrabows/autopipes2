@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+  xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+  <bean id="pipeConfig" class="org.autopipes.model.PipeConfig">
+      <property name="textSideShift"><value type="java.lang.Integer">10</value></property>
+      <property name="textVerticalUpShift1"><value type="java.lang.Integer">3</value></property>
+      <property name="textVerticalDownShift1"><value type="java.lang.Integer">-11</value></property>
+      <property name="textVerticalDownShift2"><value type="java.lang.Integer">-2</value></property>
+      <property name="textVerticalUpShift2_5"><value type="java.lang.Integer">8</value></property>
+      <property name="textVerticalUpShift2_7"><value type="java.lang.Integer">11</value></property>
+      <property name="textWidth"><value type="java.lang.Integer">150</value></property>
+      <property name="jumpTextShift"><value type="java.lang.Integer">30</value></property>
+      <property name="jumpTextDirection"><value type="java.lang.Double">0.33</value></property>
+      <property name="errorTilt"><value type="java.lang.Double">0.1</value></property>
+
+    <property name="headLookup">
+      <map>
+        <entry>
+          <key><value>upright-on-sprig</value></key>
+          <ref bean="upright-on-sprig"/>
+        </entry>
+        <entry>
+          <key><value>sprk-hd-up-sprig</value></key>
+          <ref bean="sprk-hd-up-sprig"/>
+        </entry>
+        <entry>
+          <key><value>upright</value></key>
+          <ref bean="upright"/>
+        </entry>
+        <entry>
+          <key><value>sprk-hd-up</value></key>
+          <ref bean="sprk-hd-up"/>
+        </entry>
+        <entry>
+          <key><value>sidewall</value></key>
+          <ref bean="sidewall"/>
+        </entry>
+        <entry>
+          <key><value>sprk-hd-sw</value></key>
+          <ref bean="sprk-hd-sw"/>
+        </entry>
+        <entry>
+          <key><value>ec-sidewall</value></key>
+          <ref bean="ec-sidewall"/>
+        </entry>
+        <entry>
+          <key><value>sprk-hd-sw-ec</value></key>
+          <ref bean="sprk-hd-sw-ec"/>
+        </entry>
+        <entry>
+          <key><value>pendent</value></key>
+          <ref bean="pendent"/>
+        </entry>
+        <entry>
+          <key><value>sprk-hd-pendent</value></key>
+          <ref bean="sprk-hd-pendent"/>
+        </entry>
+        <entry>
+          <key><value>dry-pendent</value></key>
+          <ref bean="dry-pendent"/>
+        </entry>
+        <entry>
+          <key><value>sprk-hd-dry-pndnt</value></key>
+          <ref bean="sprk-hd-dry-pndnt"/>
+        </entry>
+        <entry>
+          <key><value>recess-pendent</value></key>
+          <ref bean="recess-pendent"/>
+        </entry>
+        <entry>
+          <key><value>sprk-hd-rec-pndnt</value></key>
+          <ref bean="sprk-hd-rec-pndnt"/>
+        </entry>
+        <entry>
+          <key><value>concealed-pendent</value></key>
+          <ref bean="concealed-pendent"/>
+        </entry>
+        <entry>
+          <key><value>sprk-hd-conc</value></key>
+          <ref bean="sprk-hd-conc"/>
+        </entry>
+        <entry>
+          <key><value>head-under-duct</value></key>
+          <ref bean="head-under-duct"/>
+        </entry>
+        <entry>
+          <key><value>sprk-hd-under-duct</value></key>
+          <ref bean="sprk-hd-under-duct"/>
+        </entry>
+        <entry>
+          <key><value>head-under-duct-with-sprig</value></key>
+          <ref bean="head-under-duct-with-sprig"/>
+        </entry>
+        <entry>
+          <key><value>sprk-hd-under-duct-sprig</value></key>
+          <ref bean="sprk-hd-under-duct-sprig"/>
+        </entry>
+      </map>
+    </property>
+  </bean>
+  
+  <bean id="upright-on-sprig" class="org.autopipes.model.AreaBody$HeadInfo">
+  	<property name="pipe" ref="uprightOnSprigHead"></property>
+  	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">BOTTOM</value></property>
+  </bean>
+  
+  <bean id="sprk-hd-up-sprig" class="org.autopipes.model.AreaBody$HeadInfo">
+  	<property name="pipe" ref="uprightOnSprigHead"></property>
+  	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">BOTTOM</value></property>
+  </bean>
+  
+  <bean id="upright" class="org.autopipes.model.AreaBody$HeadInfo">
+  	<property name="pipe" ref="uprightHead"></property>
+  	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">BOTTOM</value></property>
+  </bean>
+  
+  <bean id="sprk-hd-up" class="org.autopipes.model.AreaBody$HeadInfo">
+  	<property name="pipe" ref="uprightHead"></property>
+  	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">BOTTOM</value></property>
+  </bean>
+  
+  <bean id="sidewall" class="org.autopipes.model.AreaBody$HeadInfo">
+  	<property name="pipe" ref="sidewallHead"></property>
+  	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">NONE</value></property>
+  </bean>
+  
+  <bean id="sprk-hd-sw" class="org.autopipes.model.AreaBody$HeadInfo">
+  	<property name="pipe" ref="sidewallHead"></property>
+  	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">NONE</value></property>
+  </bean>
+  
+  <bean id="ec-sidewall" class="org.autopipes.model.AreaBody$HeadInfo">
+  	<property name="pipe" ref="ecSidewallHead"></property>
+  	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">NONE</value></property>
+  </bean>
+  
+  <bean id="sprk-hd-sw-ec" class="org.autopipes.model.AreaBody$HeadInfo">
+  	<property name="pipe" ref="ecSidewallHead"></property>
+  	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">NONE</value></property>
+  </bean>
+  
+  <bean id="pendent" class="org.autopipes.model.AreaBody$HeadInfo">
+  	<property name="pipe" ref="pendentHead"></property>
+  	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">TOP</value></property>
+  </bean>
+  
+  <bean id="sprk-hd-pendent" class="org.autopipes.model.AreaBody$HeadInfo">
+  	<property name="pipe" ref="pendentHead"></property>
+  	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">TOP</value></property>
+  </bean>
+  
+  <bean id="dry-pendent" class="org.autopipes.model.AreaBody$HeadInfo">
+  	<property name="pipe" ref="pendentHead"></property>
+  	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">TOP</value></property>
+  </bean>
+  
+  <bean id="sprk-hd-dry-pndnt" class="org.autopipes.model.AreaBody$HeadInfo">
+  	<property name="pipe" ref="pendentHead"></property>
+  	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">TOP</value></property>
+  </bean>
+  
+  <bean id="recess-pendent" class="org.autopipes.model.AreaBody$HeadInfo">
+  	<property name="pipe" ref="pendentHead"></property>
+  	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">TOP</value></property>
+  </bean>
+  
+  <bean id="sprk-hd-rec-pndnt" class="org.autopipes.model.AreaBody$HeadInfo">
+  	<property name="pipe" ref="pendentHead"></property>
+  	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">TOP</value></property>
+  </bean>
+  
+  <bean id="concealed-pendent" class="org.autopipes.model.AreaBody$HeadInfo">
+  	<property name="pipe" ref="pendentHead"></property>
+  	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">TOP</value></property>
+  </bean>
+  
+  <bean id="sprk-hd-conc" class="org.autopipes.model.AreaBody$HeadInfo">
+  	<property name="pipe" ref="pendentHead"></property>
+  	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">TOP</value></property>
+  </bean>
+  
+  <bean id="head-under-duct" class="org.autopipes.model.AreaBody$HeadInfo">
+  	<property name="pipe" ref="otherHead"></property>
+  	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">BOTTOM</value></property>
+  </bean>
+  
+  <bean id="sprk-hd-under-duct" class="org.autopipes.model.AreaBody$HeadInfo">
+  	<property name="pipe" ref="otherHead"></property>
+  	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">BOTTOM</value></property>
+  </bean>
+  
+  <bean id="head-under-duct-with-sprig" class="org.autopipes.model.AreaBody$HeadInfo">
+  	<property name="pipe" ref="otherOnSprigHead"></property>
+  	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">BOTTOM</value></property>
+  </bean>
+  
+  <bean id="sprk-hd-under-duct-sprig" class="org.autopipes.model.AreaBody$HeadInfo">
+  	<property name="pipe" ref="otherOnSprigHead"></property>
+  	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">BOTTOM</value></property>
+  </bean>
+  
+  <bean id="otherHead" class="org.autopipes.model.Pipe">
+      <constructor-arg><value type="org.autopipes.model.DrawingLayer$Designation">Head</value></constructor-arg>
+      <property name="vertical"><value type="java.lang.Boolean" >true</value></property>
+      <property name="diameter"><value type="org.autopipes.takeout.Diameter" >D05</value></property>
+      <property name="ignored"><value type="java.lang.Boolean" >false</value></property>
+  </bean>
+  <bean id="otherOnSprigHead" class="org.autopipes.model.Pipe">
+      <constructor-arg><value type="org.autopipes.model.DrawingLayer$Designation">Head</value></constructor-arg>
+      <property name="vertical"><value type="java.lang.Boolean" >true</value></property>
+      <property name="diameter"><value type="org.autopipes.takeout.Diameter" >D1</value></property>
+      <property name="ignored"><value type="java.lang.Boolean" >false</value></property>
+  </bean>
+  <bean id="pendentHead" class="org.autopipes.model.Pipe">
+      <constructor-arg><value type="org.autopipes.model.DrawingLayer$Designation">Head</value></constructor-arg>
+      <property name="vertical"><value type="java.lang.Boolean" >true</value></property>
+      <property name="diameter"><value type="org.autopipes.takeout.Diameter" >D1</value></property>
+      <property name="ignored"><value type="java.lang.Boolean" >true</value></property>
+  </bean>
+  <bean id="uprightOnSprigHead" class="org.autopipes.model.Pipe">
+      <constructor-arg><value type="org.autopipes.model.DrawingLayer$Designation">Head</value></constructor-arg>
+      <property name="vertical"><value type="java.lang.Boolean" >true</value></property>
+      <property name="diameter"><value type="org.autopipes.takeout.Diameter" >D1</value></property>
+      <property name="ignored"><value type="java.lang.Boolean" >false</value></property>
+  </bean>
+  <bean id="uprightHead" class="org.autopipes.model.Pipe">
+      <constructor-arg><value type="org.autopipes.model.DrawingLayer$Designation">Head</value></constructor-arg>
+      <property name="vertical"><value type="java.lang.Boolean" >true</value></property>
+      <property name="diameter"><value type="org.autopipes.takeout.Diameter" >D05</value></property>
+      <property name="ignored"><value type="java.lang.Boolean" >false</value></property>
+  </bean>
+  <bean id="sidewallHead" class="org.autopipes.model.Pipe">
+      <constructor-arg><value type="org.autopipes.model.DrawingLayer$Designation">Head</value></constructor-arg>
+      <property name="vertical"><value type="java.lang.Boolean" >false</value></property>
+      <property name="diameter"><value type="org.autopipes.takeout.Diameter" >D05</value></property>
+      <property name="ignored"><value type="java.lang.Boolean" >true</value></property>
+  </bean>
+  <bean id="ecSidewallHead" class="org.autopipes.model.Pipe">
+      <constructor-arg><value type="org.autopipes.model.DrawingLayer$Designation">Head</value></constructor-arg>
+      <property name="vertical"><value type="java.lang.Boolean" >false</value></property>
+      <property name="diameter"><value type="org.autopipes.takeout.Diameter" >D075</value></property>
+      <property name="ignored"><value type="java.lang.Boolean" >true</value></property>
+  </bean>
+     
+</beans>

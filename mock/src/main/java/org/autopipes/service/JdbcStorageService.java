@@ -35,6 +35,10 @@ public class JdbcStorageService  implements StorageService  {
 	
       @Value("classpath:/rest/findAllDrawings.json")
       private Resource allDrawings;
+      
+      @Value("classpath:/rest/findAllAreas.json")
+      private Resource allDrawingAreas;
+      
       @Value("classpath:/rest/test2joe/findDrawingAreas.json")
       private Resource test2joeAreas;
       @Value("classpath:/rest/test2joe/area1/findOneDrawingArea.json")
@@ -52,6 +56,20 @@ public class JdbcStorageService  implements StorageService  {
 		}
 		return ret;
 	}
+	
+	@Override
+	public List<DrawingArea> findAllDrawingAreas() {
+		List<DrawingArea> ret = new ArrayList<>();
+		String json = getResourceAsString(allDrawingAreas);
+		try {	
+			ret = (List<DrawingArea>) getObjectFromJSONList(json, DrawingArea.class);
+			logger.info("Found " + ret.size() + " areas");
+		} catch (IOException e) {
+			logger.error("Cannot find areas", e);
+		}
+		return ret;
+	}
+
 	@Override
 	public List<DrawingArea> findDrawingAreas(Long dwgId) {
 		List<DrawingArea> ret = new ArrayList<>();

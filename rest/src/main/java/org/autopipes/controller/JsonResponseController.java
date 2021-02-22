@@ -39,6 +39,12 @@ public class JsonResponseController {
 		return storageService.findDrawingAreas(dwgId);
 	}
 	
+	@RequestMapping(value = "/area", method = RequestMethod.GET) //, produces = "application/json")
+	public @ResponseBody List<DrawingArea> getAllDrawingAreas() {
+		logger.info("getAllDrawingAreas()");
+		return storageService.findAllDrawingAreas();
+	}
+
 	@RequestMapping(value = "/drawing/{dwgId}/area/{areaId}/branch", method = RequestMethod.GET) //, produces = "application/json")
     public @ResponseBody Map<Integer, BranchInfo> getBranchInfoForArea(@PathVariable final long dwgId, @PathVariable final long areaId){
     try{

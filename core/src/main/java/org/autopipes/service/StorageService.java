@@ -25,6 +25,13 @@ public interface StorageService {
  	 * @throws Exception
  	 */
  	DrawingArea mergeArea(DrawingArea area) throws Exception;
+ 	
+ 	/**
+ 	 * Returns summary information for all areas.
+ 	 * @return the summary records
+ 	 */
+ 	List<DrawingArea> findAllDrawingAreas();
+ 	
  	/**
  	 * Returns summary information for all areas associated with a drawing id.
  	 * @param dwgId the drawing id
