@@ -1,0 +1,26 @@
+<dwg:area-root xmlns:dwg="http://dwg.autopipes.org">
+	<dwg-id xmlns="http://dwg.autopipes.org">1063</dwg-id>
+	<area-body xmlns="http://dwg.autopipes.org">
+		<dwg-entity cls="AcDbPoint" id="1819156656512"
+			ly="SPRK-CUTS">
+			<ent-start x="1601.07270427141" y="1441.71481549578" />
+		</dwg-entity>
+		<dwg-entity cls="AcDbPoint" id="1819156656368"
+			ly="SPRK-CUTS">
+			<ent-start x="607.885658448948" y="1441.71481549578" />
+		</dwg-entity>
+		<dwg-entity cls="AcDbLine" id="1819156121216" ly="sprk-pmn">
+			<ent-start x="802.032822197592" y="1464.89243721074" />
+			<ent-end x="802.032822197592" y="1441.71481549578" />
+		</dwg-entity>
+		<dwg-entity cls="AcDbLine" id="1819156121200" ly="sprk-pmn">
+			<ent-start x="607.885658448948" y="1441.71481549578" />
+			<ent-end x="1601.07270427141" y="1441.71481549578" />
+		</dwg-entity>
+		<dwg-entity cls="AcDbLine" id="1819156121184" ly="sprk-pmn">
+			<ent-start x="808.893910135545" y="1464.89243721074" />
+			<ent-end x="802.032822197592" y="1464.89243721074" />
+		</dwg-entity>
+	</area-body>
+	<area-options xmlns="http://dwg.autopipes.org" />
+</dwg:area-root>

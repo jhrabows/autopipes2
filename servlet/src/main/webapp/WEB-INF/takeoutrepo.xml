@@ -257,6 +257,16 @@
                             <value>1.1250</value>
                         </entry>
                     </byAngle>
+                    <byAttachment>
+                        <entry>
+                            <key>welded</key>
+                            <value>1.1250</value>
+                        </entry>
+                        <entry>
+                            <key>weldedGroove</key>
+                            <value>3.625</value>
+                        </entry>
+                    </byAttachment>
                 </value>
             </entry>
             <entry>
@@ -268,6 +278,16 @@
                             <value>1.2500</value>
                         </entry>
                     </byAngle>
+                    <byAttachment>
+                        <entry>
+                            <key>welded</key>
+                            <value>1.2500</value>
+                        </entry>
+                        <entry>
+                            <key>weldedGroove</key>
+                            <value>3.7500</value>
+                        </entry>
+                    </byAttachment>
                 </value>
             </entry>
             <entry>
@@ -287,6 +307,10 @@
                         <entry>
                             <key>welded</key>
                             <value>1.5000</value>
+                        </entry>
+                        <entry>
+                            <key>weldedGroove</key>
+                            <value>4.0000</value>
                         </entry>
                         <entry>
                             <key>mechanical</key>
@@ -310,6 +334,10 @@
                             <value>1.7500</value>
                         </entry>
                         <entry>
+                            <key>weldedGroove</key>
+                            <value>4.2500</value>
+                        </entry>
+                        <entry>
                             <key>mechanical</key>
                             <value>2.2900</value>
                         </entry>
@@ -329,6 +357,10 @@
                         <entry>
                             <key>welded</key>
                             <value>2.0000</value>
+                        </entry>
+                        <entry>
+                            <key>weldedGroove</key>
+                            <value>4.5000</value>
                         </entry>
                         <entry>
                             <key>mechanical</key>
@@ -352,6 +384,10 @@
                             <value>2.5000</value>
                         </entry>
                         <entry>
+                            <key>weldedGroove</key>
+                            <value>5.0000</value>
+                        </entry>
+                        <entry>
                             <key>mechanical</key>
                             <value>3.0700</value>
                         </entry>
@@ -368,6 +404,10 @@
                             <value>3.5000</value>
                         </entry>
                         <entry>
+                            <key>weldedGroove</key>
+                            <value>6.0000</value>
+                        </entry>
+                        <entry>
                             <key>mechanical</key>
                             <value>4.4400</value>
                         </entry>
@@ -382,6 +422,10 @@
                         <entry>
                             <key>welded</key>
                             <value>4.5000</value>
+                        </entry>
+                        <entry>
+                            <key>weldedGroove</key>
+                            <value>7.0000</value>
                         </entry>
                     </byAttachment>
                 </value>

@@ -1,0 +1,29 @@
+<dwg:dwg-root xmlns:dwg="http://dwg.autopipes.org">
+	<dwg-name xmlns="http://dwg.autopipes.org">Test 1 1-4 Mains</dwg-name>
+	<dwg-text-size xmlns="http://dwg.autopipes.org">6</dwg-text-size>
+	<dwg-update-date xmlns="http://dwg.autopipes.org">2021-03-07T20:35:32
+	</dwg-update-date>
+	<options-root xmlns="http://dwg.autopipes.org">
+		<layers-root>
+			<layer name="SPRK-CUTS" type="Output" />
+			<layer name="sprk-pmn" type="Main" sub-type="weldedGroove"
+				main-diameter="D125" vendor="FIRELOCK" />
+			<layer name="sprk-pbl" type="Branch">
+				<headcount>
+					<entry xmlns="">
+						<key>1</key>
+						<value>D1</value>
+					</entry>
+					<entry xmlns="">
+						<key>3</key>
+						<value>D125</value>
+					</entry>
+				</headcount>
+			</layer>
+		</layers-root>
+		<error-color>Magenta</error-color>
+		<weld-if-equal>Y</weld-if-equal>
+		<abco-mode>N</abco-mode>
+	</options-root>
+	<dwg-id xmlns="http://dwg.autopipes.org">64</dwg-id>
+</dwg:dwg-root>

@@ -68,6 +68,24 @@ public class AnalysisServiceTest {
 
 	}
 	
+	@Test
+	public void testWeldTee() throws XmlMappingException, IOException {
+		Resource test114main = new ClassPathResource("/dwg/test114main/cfg.xml");
+		Resource weldtee = new ClassPathResource("/dwg/test114main/weldtee.xml");
+		assertNotNull(test114main);
+		assertNotNull(weldtee);
+		String test114mainStr = getResourceAsString(test114main);
+		String weldteeStr = getResourceAsString(weldtee);
+		FloorDrawing test114Main = (FloorDrawing) getObjectFromXML(test114mainStr);
+		DrawingArea weldTee =  (DrawingArea) getObjectFromXML(weldteeStr);
+		assertNotNull(weldTee);
+		assertNotNull(test114Main);
+		
+    	analyzerService.validateArea(test114Main, weldTee);
+
+	}
+
+	
 	
     public Unmarshaller getUnmarshaller() {
 		return unmarshaller;
