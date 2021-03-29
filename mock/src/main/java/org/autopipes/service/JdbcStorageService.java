@@ -29,6 +29,8 @@ import org.springframework.oxm.XmlMappingException;
 // Mock version
 public class JdbcStorageService  implements StorageService  {
 	  private static Logger logger = Logger.getLogger(JdbcStorageService.class);
+	  
+	  private static final long WIDEBRANCH_ID = 1023L;
  
       private Marshaller marshaller;
       private Unmarshaller unmarshaller;
@@ -43,6 +45,8 @@ public class JdbcStorageService  implements StorageService  {
       private Resource test2joeAreas;
       @Value("classpath:/rest/test2joe/area1/findOneDrawingArea.json")
       private Resource test2joeArea1;
+      @Value("classpath:/rest/widebranch/area2/findOneDrawingArea.json")
+      private Resource widebranchArea2;
 
 	@Override
 	public List<FloorDrawing> findAllDrawings(){
@@ -86,7 +90,8 @@ public class JdbcStorageService  implements StorageService  {
 	@Override
 	public DrawingArea findOneDrawingArea(Long dwgId, Long areaId, boolean withBody, boolean withCutSheet) {
 		DrawingArea ret = new DrawingArea();
-		String json = getResourceAsString(test2joeArea1);
+		Resource data = dwgId.longValue() == WIDEBRANCH_ID ? widebranchArea2 : test2joeArea1;
+		String json = getResourceAsString(data);
 		try {	
 			ret = (DrawingArea) getObjectFromJSON(json, DrawingArea.class);
 			logger.info("Found " + (ret==null?"Null":"") + "area");

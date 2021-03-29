@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.autopipes.model.AreaCutSheet;
 import org.autopipes.model.AreaCutSheet.BranchInfo;
 import org.autopipes.model.DrawingArea;
 import org.autopipes.model.Employee;
@@ -65,6 +66,28 @@ public class JsonResponseController {
     	return null;
     }
     }
+	
+	@RequestMapping(value = "/drawing/{dwgId}/area/{areaId}", method = RequestMethod.GET) //, produces = "application/json")
+    public @ResponseBody AreaCutSheet getCutSheetForArea(@PathVariable final long dwgId, @PathVariable final long areaId){
+    try{
+		logger.info("getCutSheetForArea(" + dwgId + "," + areaId + ")");
+    	FloorDrawing dwg = storageService.findOneDrawing(dwgId);
+        if(dwg == null){
+        	throw new IllegalArgumentException(
+        			"Unknown drawing id " + dwgId);
+        }
+        DrawingArea area = storageService.findOneDrawingArea(dwgId, areaId, false, true);
+        if(area == null){
+        	throw new IllegalArgumentException(
+        			"Unknown area id " + areaId + " for drawing " + dwgId);
+        }
+    	return area.getAreaCutSheet();
+    }catch(Exception e){
+    	logger.error("getCutSheetForArea", e);
+    	return null;
+    }
+    }
+
 
 	
 	@RequestMapping(value = "/employees", method = RequestMethod.GET) //, produces = "application/json")

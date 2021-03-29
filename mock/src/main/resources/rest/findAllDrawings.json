@@ -54,5 +54,12 @@
     "dwgTextSize": 6,
     "optionsRoot": null,
     "area": {}
+  },
+    {
+    "id": 1023,
+    "dwgName": "Wide Branch",
+    "dwgTextSize": 6,
+    "optionsRoot": null,
+    "area": {}
   }
 ]
