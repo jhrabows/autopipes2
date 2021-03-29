@@ -61,5 +61,12 @@
     "dwgTextSize": 6,
     "optionsRoot": null,
     "area": {}
+  },
+    {
+    "id": 1083,
+    "dwgName": "Weld on Branch 3",
+    "dwgTextSize": 6,
+    "optionsRoot": null,
+    "area": {}
   }
 ]

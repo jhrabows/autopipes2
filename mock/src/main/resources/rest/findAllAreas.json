@@ -351,5 +351,21 @@
       "mainWeldedList": []
     },
     "rendering": []
+  },
+  {
+    "drawingId": 1083,
+    "areaId": 22,
+    "areaName": "Area-22",
+    "areaOptions": null,
+    "areaReadiness": "Ready",
+    "defectCount": 0,
+    "areaBody": null,
+    "areaCutSheet": {
+      "branchMap": {},
+      "mainThreadedList": [],
+      "mainGroovedList": [],
+      "mainWeldedList": []
+    },
+    "rendering": []
   }
 ]
