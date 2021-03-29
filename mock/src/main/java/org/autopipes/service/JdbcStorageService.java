@@ -31,6 +31,7 @@ public class JdbcStorageService  implements StorageService  {
 	  private static Logger logger = Logger.getLogger(JdbcStorageService.class);
 	  
 	  private static final long WIDEBRANCH_ID = 1023L;
+	  private static final long TEST2_ID = 943L;
  
       private Marshaller marshaller;
       private Unmarshaller unmarshaller;
@@ -47,6 +48,8 @@ public class JdbcStorageService  implements StorageService  {
       private Resource test2joeArea1;
       @Value("classpath:/rest/widebranch/area2/findOneDrawingArea.json")
       private Resource widebranchArea2;
+      @Value("classpath:/rest/test2/area1/findOneDrawingArea.json")
+      private Resource test2Area1;
 
 	@Override
 	public List<FloorDrawing> findAllDrawings(){
@@ -90,7 +93,12 @@ public class JdbcStorageService  implements StorageService  {
 	@Override
 	public DrawingArea findOneDrawingArea(Long dwgId, Long areaId, boolean withBody, boolean withCutSheet) {
 		DrawingArea ret = new DrawingArea();
-		Resource data = dwgId.longValue() == WIDEBRANCH_ID ? widebranchArea2 : test2joeArea1;
+		Resource data =  test2joeArea1;
+		if(dwgId.longValue() == WIDEBRANCH_ID) {
+			data = widebranchArea2;
+		}else if(dwgId.longValue() == TEST2_ID) {
+			data = test2Area1;
+		}
 		String json = getResourceAsString(data);
 		try {	
 			ret = (DrawingArea) getObjectFromJSON(json, DrawingArea.class);

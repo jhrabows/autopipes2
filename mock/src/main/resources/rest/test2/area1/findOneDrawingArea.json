@@ -1,0 +1,868 @@
+{
+    "drawingId": 943,
+    "areaId": 1,
+    "areaName": "Area-1",
+    "areaOptions": null,
+    "areaReadiness": "Empty",
+    "defectCount": 0,
+    "areaBody": null,
+    "areaCutSheet":  {
+  "branchMap": {
+    "1": {
+      "branchId": 0,
+      "multiplicity": 1,
+      "origin": {
+        "id": 1,
+        "designation": "Branch",
+        "ignored": false,
+        "vertical": false,
+        "concealed": false,
+        "layerName": null,
+        "diameter": "D1",
+        "span": 15,
+        "afterTakeout": 13,
+        "startAttachment": {
+          "directionInFitting": "N",
+          "takeout": null
+        },
+        "endAttachment": {
+          "directionInFitting": "E",
+          "takeout": null
+        }
+      },
+      "originalAttachment": "threaded",
+      "edgeMultiplicity": [
+        {
+          "edgeInfo": {
+            "pipe": {
+              "id": 1,
+              "designation": "Branch",
+              "ignored": false,
+              "vertical": false,
+              "concealed": false,
+              "layerName": null,
+              "diameter": "D1",
+              "span": 15,
+              "afterTakeout": 13,
+              "startAttachment": {
+                "directionInFitting": "N",
+                "takeout": null
+              },
+              "endAttachment": {
+                "directionInFitting": "E",
+                "takeout": null
+              }
+            },
+            "startFitting": {
+              "type": "Cross",
+              "attachment": "threaded",
+              "vendor": null,
+              "diameterList": [
+                "D2",
+                "D2",
+                "D1",
+                "D1"
+              ],
+              "holeBased": false,
+              "couplingContinuation": false
+            },
+            "endFitting": {
+              "type": "Ell",
+              "attachment": "threaded",
+              "vendor": null,
+              "diameterList": [
+                "D1"
+              ],
+              "holeBased": false,
+              "couplingContinuation": false
+            }
+          },
+          "count": 1
+        }
+      ]
+    },
+    "2": {
+      "branchId": 0,
+      "multiplicity": 2,
+      "origin": {
+        "id": 2,
+        "designation": "Branch",
+        "ignored": false,
+        "vertical": false,
+        "concealed": false,
+        "layerName": null,
+        "diameter": "D1",
+        "span": 105,
+        "afterTakeout": 103,
+        "startAttachment": {
+          "directionInFitting": "S",
+          "takeout": null
+        },
+        "endAttachment": {
+          "directionInFitting": "E",
+          "takeout": null
+        }
+      },
+      "originalAttachment": "threaded",
+      "edgeMultiplicity": [
+        {
+          "edgeInfo": {
+            "pipe": {
+              "id": 2,
+              "designation": "Branch",
+              "ignored": false,
+              "vertical": false,
+              "concealed": false,
+              "layerName": null,
+              "diameter": "D1",
+              "span": 84,
+              "afterTakeout": 84,
+              "startAttachment": {
+                "directionInFitting": "W",
+                "takeout": null
+              },
+              "endAttachment": {
+                "directionInFitting": "E",
+                "takeout": null
+              }
+            },
+            "startFitting": {
+              "type": "Tee",
+              "attachment": "threaded",
+              "vendor": null,
+              "diameterList": [
+                "D1"
+              ],
+              "holeBased": false,
+              "couplingContinuation": false
+            },
+            "endFitting": {
+              "type": "Coupling",
+              "attachment": "threaded",
+              "vendor": null,
+              "diameterList": [
+                "D1"
+              ],
+              "holeBased": false,
+              "couplingContinuation": true
+            }
+          },
+          "count": 1
+        },
+        {
+          "edgeInfo": {
+            "pipe": {
+              "id": 2,
+              "designation": "Branch",
+              "ignored": false,
+              "vertical": false,
+              "concealed": false,
+              "layerName": null,
+              "diameter": "D1",
+              "span": 60,
+              "afterTakeout": 57,
+              "startAttachment": {
+                "directionInFitting": "W",
+                "takeout": null
+              },
+              "endAttachment": {
+                "directionInFitting": "W",
+                "takeout": null
+              }
+            },
+            "startFitting": {
+              "type": "Coupling",
+              "attachment": "threaded",
+              "vendor": null,
+              "diameterList": [
+                "D1"
+              ],
+              "holeBased": false,
+              "couplingContinuation": true
+            },
+            "endFitting": {
+              "type": "Ell",
+              "attachment": "threaded",
+              "vendor": null,
+              "diameterList": [
+                "D1"
+              ],
+              "holeBased": false,
+              "couplingContinuation": false
+            }
+          },
+          "count": 1
+        },
+        {
+          "edgeInfo": {
+            "pipe": {
+              "id": 2,
+              "designation": "Branch",
+              "ignored": false,
+              "vertical": false,
+              "concealed": false,
+              "layerName": null,
+              "diameter": "D1",
+              "span": 105,
+              "afterTakeout": 103,
+              "startAttachment": {
+                "directionInFitting": "S",
+                "takeout": null
+              },
+              "endAttachment": {
+                "directionInFitting": "E",
+                "takeout": null
+              }
+            },
+            "startFitting": {
+              "type": "Cross",
+              "attachment": "threaded",
+              "vendor": null,
+              "diameterList": [
+                "D2",
+                "D2",
+                "D1",
+                "D1"
+              ],
+              "holeBased": false,
+              "couplingContinuation": false
+            },
+            "endFitting": {
+              "type": "Tee",
+              "attachment": "threaded",
+              "vendor": null,
+              "diameterList": [
+                "D1"
+              ],
+              "holeBased": false,
+              "couplingContinuation": false
+            }
+          },
+          "count": 1
+        }
+      ]
+    },
+    "3": {
+      "branchId": 0,
+      "multiplicity": 1,
+      "origin": {
+        "id": 3,
+        "designation": "Branch",
+        "ignored": false,
+        "vertical": false,
+        "concealed": false,
+        "layerName": null,
+        "diameter": "D2",
+        "span": 81,
+        "afterTakeout": 78,
+        "startAttachment": {
+          "directionInFitting": "W",
+          "takeout": null
+        },
+        "endAttachment": {
+          "directionInFitting": "E",
+          "takeout": null
+        }
+      },
+      "originalAttachment": "threaded",
+      "edgeMultiplicity": [
+        {
+          "edgeInfo": {
+            "pipe": {
+              "id": 3,
+              "designation": "Branch",
+              "ignored": false,
+              "vertical": false,
+              "concealed": false,
+              "layerName": null,
+              "diameter": "D2",
+              "span": 81,
+              "afterTakeout": 78,
+              "startAttachment": {
+                "directionInFitting": "W",
+                "takeout": null
+              },
+              "endAttachment": {
+                "directionInFitting": "E",
+                "takeout": null
+              }
+            },
+            "startFitting": {
+              "type": "Ell",
+              "attachment": "threaded",
+              "vendor": null,
+              "diameterList": [
+                "D2"
+              ],
+              "holeBased": false,
+              "couplingContinuation": false
+            },
+            "endFitting": {
+              "type": "Tee",
+              "attachment": "threaded",
+              "vendor": null,
+              "diameterList": [
+                "D2",
+                "D15",
+                "D1"
+              ],
+              "holeBased": false,
+              "couplingContinuation": false
+            }
+          },
+          "count": 1
+        },
+        {
+          "edgeInfo": {
+            "pipe": {
+              "id": 3,
+              "designation": "Branch",
+              "ignored": false,
+              "vertical": false,
+              "concealed": false,
+              "layerName": null,
+              "diameter": "D15",
+              "span": 24,
+              "afterTakeout": 21,
+              "startAttachment": {
+                "directionInFitting": "E",
+                "takeout": null
+              },
+              "endAttachment": {
+                "directionInFitting": "E",
+                "takeout": null
+              }
+            },
+            "startFitting": {
+              "type": "Tee",
+              "attachment": "threaded",
+              "vendor": null,
+              "diameterList": [
+                "D15",
+                "D1",
+                "D15"
+              ],
+              "holeBased": false,
+              "couplingContinuation": false
+            },
+            "endFitting": {
+              "type": "Ell",
+              "attachment": "threaded",
+              "vendor": null,
+              "diameterList": [
+                "D15"
+              ],
+              "holeBased": false,
+              "couplingContinuation": false
+            }
+          },
+          "count": 1
+        },
+        {
+          "edgeInfo": {
+            "pipe": {
+              "id": 3,
+              "designation": "Branch",
+              "ignored": false,
+              "vertical": false,
+              "concealed": false,
+              "layerName": null,
+              "diameter": "D15",
+              "span": 49,
+              "afterTakeout": 47,
+              "startAttachment": {
+                "directionInFitting": "W",
+                "takeout": null
+              },
+              "endAttachment": {
+                "directionInFitting": "E",
+                "takeout": null
+              }
+            },
+            "startFitting": {
+              "type": "Tee",
+              "attachment": "threaded",
+              "vendor": null,
+              "diameterList": [
+                "D2",
+                "D15",
+                "D1"
+              ],
+              "holeBased": false,
+              "couplingContinuation": false
+            },
+            "endFitting": {
+              "type": "Tee",
+              "attachment": "threaded",
+              "vendor": null,
+              "diameterList": [
+                "D15",
+                "D15",
+                "D1"
+              ],
+              "holeBased": false,
+              "couplingContinuation": false
+            }
+          },
+          "count": 1
+        },
+        {
+          "edgeInfo": {
+            "pipe": {
+              "id": 3,
+              "designation": "Branch",
+              "ignored": false,
+              "vertical": false,
+              "concealed": false,
+              "layerName": null,
+              "diameter": "D15",
+              "span": 84,
+              "afterTakeout": 82,
+              "startAttachment": {
+                "directionInFitting": "W",
+                "takeout": null
+              },
+              "endAttachment": {
+                "directionInFitting": "E",
+                "takeout": null
+              }
+            },
+            "startFitting": {
+              "type": "Ell",
+              "attachment": "threaded",
+              "vendor": null,
+              "diameterList": [
+                "D15"
+              ],
+              "holeBased": false,
+              "couplingContinuation": false
+            },
+            "endFitting": {
+              "type": "Tee",
+              "attachment": "threaded",
+              "vendor": null,
+              "diameterList": [
+                "D15",
+                "D1",
+                "D1"
+              ],
+              "holeBased": false,
+              "couplingContinuation": false
+            }
+          },
+          "count": 1
+        },
+        {
+          "edgeInfo": {
+            "pipe": {
+              "id": 3,
+              "designation": "Branch",
+              "ignored": false,
+              "vertical": false,
+              "concealed": false,
+              "layerName": null,
+              "diameter": "D15",
+              "span": 47,
+              "afterTakeout": 45,
+              "startAttachment": {
+                "directionInFitting": "W",
+                "takeout": null
+              },
+              "endAttachment": {
+                "directionInFitting": "N",
+                "takeout": null
+              }
+            },
+            "startFitting": {
+              "type": "Tee",
+              "attachment": "threaded",
+              "vendor": null,
+              "diameterList": [
+                "D15",
+                "D15",
+                "D1"
+              ],
+              "holeBased": false,
+              "couplingContinuation": false
+            },
+            "endFitting": {
+              "type": "Tee",
+              "attachment": "threaded",
+              "vendor": null,
+              "diameterList": [
+                "D15",
+                "D1",
+                "D15"
+              ],
+              "holeBased": false,
+              "couplingContinuation": false
+            }
+          },
+          "count": 1
+        },
+        {
+          "edgeInfo": {
+            "pipe": {
+              "id": 3,
+              "designation": "Branch",
+              "ignored": false,
+              "vertical": false,
+              "concealed": false,
+              "layerName": null,
+              "diameter": "D1",
+              "span": 24,
+              "afterTakeout": 22,
+              "startAttachment": {
+                "directionInFitting": "N",
+                "takeout": null
+              },
+              "endAttachment": {
+                "directionInFitting": "E",
+                "takeout": null
+              }
+            },
+            "startFitting": {
+              "type": "Tee",
+              "attachment": "threaded",
+              "vendor": null,
+              "diameterList": [
+                "D2",
+                "D15",
+                "D1"
+              ],
+              "holeBased": false,
+              "couplingContinuation": false
+            },
+            "endFitting": {
+              "type": "Ell",
+              "attachment": "threaded",
+              "vendor": null,
+              "diameterList": [
+                "D1"
+              ],
+              "holeBased": false,
+              "couplingContinuation": false
+            }
+          },
+          "count": 3
+        },
+        {
+          "edgeInfo": {
+            "pipe": {
+              "id": 3,
+              "designation": "Branch",
+              "ignored": false,
+              "vertical": false,
+              "concealed": false,
+              "layerName": null,
+              "diameter": "D1",
+              "span": 12,
+              "afterTakeout": 10,
+              "startAttachment": {
+                "directionInFitting": "W",
+                "takeout": null
+              },
+              "endAttachment": {
+                "directionInFitting": "E",
+                "takeout": null
+              }
+            },
+            "startFitting": {
+              "type": "Ell",
+              "attachment": "threaded",
+              "vendor": null,
+              "diameterList": [
+                "D1"
+              ],
+              "holeBased": false,
+              "couplingContinuation": false
+            },
+            "endFitting": {
+              "type": "Ell",
+              "attachment": "threaded",
+              "vendor": null,
+              "diameterList": [
+                "D1"
+              ],
+              "holeBased": false,
+              "couplingContinuation": false
+            }
+          },
+          "count": 1
+        },
+        {
+          "edgeInfo": {
+            "pipe": {
+              "id": 3,
+              "designation": "Branch",
+              "ignored": false,
+              "vertical": false,
+              "concealed": false,
+              "layerName": null,
+              "diameter": "D1",
+              "span": 48,
+              "afterTakeout": 46,
+              "startAttachment": {
+                "directionInFitting": "N",
+                "takeout": null
+              },
+              "endAttachment": {
+                "directionInFitting": "E",
+                "takeout": null
+              }
+            },
+            "startFitting": {
+              "type": "Tee",
+              "attachment": "threaded",
+              "vendor": null,
+              "diameterList": [
+                "D15",
+                "D1",
+                "D1"
+              ],
+              "holeBased": false,
+              "couplingContinuation": false
+            },
+            "endFitting": {
+              "type": "Ell",
+              "attachment": "threaded",
+              "vendor": null,
+              "diameterList": [
+                "D1"
+              ],
+              "holeBased": false,
+              "couplingContinuation": false
+            }
+          },
+          "count": 4
+        },
+        {
+          "edgeInfo": {
+            "pipe": {
+              "id": 3,
+              "designation": "Branch",
+              "ignored": false,
+              "vertical": false,
+              "concealed": false,
+              "layerName": null,
+              "diameter": "D1",
+              "span": 48,
+              "afterTakeout": 46,
+              "startAttachment": {
+                "directionInFitting": "W",
+                "takeout": null
+              },
+              "endAttachment": {
+                "directionInFitting": "E",
+                "takeout": null
+              }
+            },
+            "startFitting": {
+              "type": "Tee",
+              "attachment": "threaded",
+              "vendor": null,
+              "diameterList": [
+                "D15",
+                "D1",
+                "D1"
+              ],
+              "holeBased": false,
+              "couplingContinuation": false
+            },
+            "endFitting": {
+              "type": "Tee",
+              "attachment": "threaded",
+              "vendor": null,
+              "diameterList": [
+                "D1"
+              ],
+              "holeBased": false,
+              "couplingContinuation": false
+            }
+          },
+          "count": 1
+        }
+      ]
+    }
+  },
+  "mainThreadedList": [
+    {
+      "pipe": {
+        "id": 4,
+        "designation": "Main",
+        "ignored": false,
+        "vertical": false,
+        "concealed": false,
+        "layerName": null,
+        "diameter": "D2",
+        "span": 108,
+        "afterTakeout": 104.5,
+        "startAttachment": {
+          "directionInFitting": "E",
+          "takeout": null
+        },
+        "endAttachment": {
+          "directionInFitting": "E",
+          "takeout": null
+        }
+      },
+      "startFitting": {
+        "type": "Ell",
+        "attachment": "threaded",
+        "vendor": null,
+        "diameterList": [
+          "D2"
+        ],
+        "holeBased": false,
+        "couplingContinuation": false
+      },
+      "endFitting": {
+        "type": "Ell",
+        "attachment": "threaded",
+        "vendor": null,
+        "diameterList": [
+          "D2"
+        ],
+        "holeBased": false,
+        "couplingContinuation": false
+      }
+    },
+    {
+      "pipe": {
+        "id": 3,
+        "designation": "Main",
+        "ignored": false,
+        "vertical": false,
+        "concealed": false,
+        "layerName": null,
+        "diameter": "D2",
+        "span": 90,
+        "afterTakeout": 87,
+        "startAttachment": {
+          "directionInFitting": "E",
+          "takeout": null
+        },
+        "endAttachment": {
+          "directionInFitting": "W",
+          "takeout": null
+        }
+      },
+      "startFitting": {
+        "type": "Tee",
+        "attachment": "threaded",
+        "vendor": null,
+        "diameterList": [
+          "D2",
+          "D1",
+          "D2"
+        ],
+        "holeBased": false,
+        "couplingContinuation": false
+      },
+      "endFitting": {
+        "type": "Ell",
+        "attachment": "threaded",
+        "vendor": null,
+        "diameterList": [
+          "D2"
+        ],
+        "holeBased": false,
+        "couplingContinuation": false
+      }
+    },
+    {
+      "pipe": {
+        "id": 2,
+        "designation": "Main",
+        "ignored": false,
+        "vertical": false,
+        "concealed": false,
+        "layerName": null,
+        "diameter": "D2",
+        "span": 66,
+        "afterTakeout": 63.5,
+        "startAttachment": {
+          "directionInFitting": "W",
+          "takeout": null
+        },
+        "endAttachment": {
+          "directionInFitting": "N",
+          "takeout": null
+        }
+      },
+      "startFitting": {
+        "type": "Cross",
+        "attachment": "threaded",
+        "vendor": null,
+        "diameterList": [
+          "D2",
+          "D2",
+          "D1",
+          "D1"
+        ],
+        "holeBased": false,
+        "couplingContinuation": false
+      },
+      "endFitting": {
+        "type": "Tee",
+        "attachment": "threaded",
+        "vendor": null,
+        "diameterList": [
+          "D2",
+          "D1",
+          "D2"
+        ],
+        "holeBased": false,
+        "couplingContinuation": false
+      }
+    },
+    {
+      "pipe": {
+        "id": 1,
+        "designation": "Main",
+        "ignored": false,
+        "vertical": false,
+        "concealed": false,
+        "layerName": null,
+        "diameter": "D2",
+        "span": 54,
+        "afterTakeout": 51,
+        "startAttachment": {
+          "directionInFitting": "W",
+          "takeout": null
+        },
+        "endAttachment": {
+          "directionInFitting": "E",
+          "takeout": null
+        }
+      },
+      "startFitting": {
+        "type": "Ell",
+        "attachment": "threaded",
+        "vendor": null,
+        "diameterList": [
+          "D2"
+        ],
+        "holeBased": false,
+        "couplingContinuation": false
+      },
+      "endFitting": {
+        "type": "Cross",
+        "attachment": "threaded",
+        "vendor": null,
+        "diameterList": [
+          "D2",
+          "D2",
+          "D1",
+          "D1"
+        ],
+        "holeBased": false,
+        "couplingContinuation": false
+      }
+    }
+  ],
+  "mainGroovedList": [],
+  "mainWeldedList": []
+	},
+	"rendering": []
+}
