@@ -99,6 +99,12 @@
           <key><value>sprk-hd-under-duct-sprig</value></key>
           <ref bean="sprk-hd-under-duct-sprig"/>
         </entry>
+        
+        <entry>
+          <key><value>sprk-hd-flex</value></key>
+          <ref bean="sprk-hd-flex"/>
+        </entry>
+        
       </map>
     </property>
   </bean>
@@ -132,6 +138,12 @@
   	<property name="pipe" ref="sidewallHead"></property>
   	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">NONE</value></property>
   </bean>
+  
+  <bean id="sprk-hd-flex" class="org.autopipes.model.AreaBody$HeadInfo">
+  	<property name="pipe" ref="flexHead"></property>
+  	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">NONE</value></property>
+  </bean>
+
   
   <bean id="ec-sidewall" class="org.autopipes.model.AreaBody$HeadInfo">
   	<property name="pipe" ref="ecSidewallHead"></property>
@@ -239,11 +251,20 @@
       <property name="diameter"><value type="org.autopipes.takeout.Diameter" >D05</value></property>
       <property name="ignored"><value type="java.lang.Boolean" >true</value></property>
   </bean>
+  
   <bean id="ecSidewallHead" class="org.autopipes.model.Pipe">
       <constructor-arg><value type="org.autopipes.model.DrawingLayer$Designation">Head</value></constructor-arg>
       <property name="vertical"><value type="java.lang.Boolean" >false</value></property>
       <property name="diameter"><value type="org.autopipes.takeout.Diameter" >D075</value></property>
       <property name="ignored"><value type="java.lang.Boolean" >true</value></property>
   </bean>
+  
+  <bean id="flexHead" class="org.autopipes.model.Pipe">
+      <constructor-arg><value type="org.autopipes.model.DrawingLayer$Designation">Head</value></constructor-arg>
+      <property name="vertical"><value type="java.lang.Boolean" >false</value></property>
+      <property name="diameter"><value type="org.autopipes.takeout.Diameter" >D1</value></property>
+      <property name="ignored"><value type="java.lang.Boolean" >true</value></property>
+  </bean>
+
      
 </beans>

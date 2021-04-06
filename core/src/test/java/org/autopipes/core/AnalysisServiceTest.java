@@ -85,7 +85,41 @@ public class AnalysisServiceTest {
 
 	}
 
+	@Test
+	public void testSideHead() throws XmlMappingException, IOException {
+		Resource errmain = new ClassPathResource("/dwg/error/cfg.xml");
+		Resource sidehead = new ClassPathResource("/dwg/error/side-head.xml");
+		assertNotNull(errmain);
+		assertNotNull(sidehead);
+		String errmainStr = getResourceAsString(errmain);
+		String sideheadStr = getResourceAsString(sidehead);
+		FloorDrawing errMain = (FloorDrawing) getObjectFromXML(errmainStr);
+		DrawingArea sideHead =  (DrawingArea) getObjectFromXML(sideheadStr);
+		assertNotNull(errMain);
+		assertNotNull(sideHead);
+		
+    	analyzerService.validateArea(errMain, sideHead);
+
+	}
 	
+	@Test
+	public void testFlexHead() throws XmlMappingException, IOException {
+		Resource errmain = new ClassPathResource("/dwg/error/cfg.xml");
+		Resource flexhead = new ClassPathResource("/dwg/error/flex-head.xml");
+		assertNotNull(errmain);
+		assertNotNull(flexhead);
+		String errmainStr = getResourceAsString(errmain);
+		String flexheadStr = getResourceAsString(flexhead);
+		FloorDrawing errMain = (FloorDrawing) getObjectFromXML(errmainStr);
+		DrawingArea flexHead =  (DrawingArea) getObjectFromXML(flexheadStr);
+		assertNotNull(errMain);
+		assertNotNull(flexHead);
+		
+    	analyzerService.validateArea(errMain, flexHead);
+
+	}
+
+
 	
     public Unmarshaller getUnmarshaller() {
 		return unmarshaller;

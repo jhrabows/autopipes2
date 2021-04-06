@@ -1,0 +1,97 @@
+<dwg:area-root xmlns:dwg="http://dwg.autopipes.org">
+	<dwg-id xmlns="http://dwg.autopipes.org">1103</dwg-id>
+	<area-body xmlns="http://dwg.autopipes.org">
+		<dwg-entity cls="AcDbBlockReference" id="2445584538112"
+			ly="0" name="sprk-hd-flex">
+			<ent-start x="-317.126409140855" y="444.216639742029" />
+		</dwg-entity>
+		<dwg-entity cls="AcDbBlockReference" id="2445541413600"
+			ly="0" name="AREA-CONFIG">
+			<ent-start x="-237.643399869049" y="457.418791258633" />
+			<attributes>
+				<entry xmlns="">
+					<key>AREA-ID</key>
+					<value>2</value>
+				</entry>
+				<entry xmlns="">
+					<key>AREA-NAME</key>
+					<value>Area-2</value>
+				</entry>
+				<entry xmlns="">
+					<key>MAIN-LABEL</key>
+					<value>M-</value>
+				</entry>
+				<entry xmlns="">
+					<key>MAIN-START-NO</key>
+					<value>1</value>
+				</entry>
+				<entry xmlns="">
+					<key>BRANCH-LABEL</key>
+					<value>#</value>
+				</entry>
+				<entry xmlns="">
+					<key>BRANCH-START-NO</key>
+					<value>1</value>
+				</entry>
+				<entry xmlns="">
+					<key>IGNORE-SHORTER-THAN</key>
+					<value>1'</value>
+				</entry>
+				<entry xmlns="">
+					<key>CUT-LONGER-THAN</key>
+					<value>10'6"</value>
+				</entry>
+				<entry xmlns="">
+					<key>CUT-BRANCH-INTO</key>
+					<value>7'</value>
+				</entry>
+				<entry xmlns="">
+					<key>CUT-MAIN-INTO</key>
+					<value>10'6" 10' 9'</value>
+				</entry>
+				<entry xmlns="">
+					<key>MAIN-CUT-CLEARANCE</key>
+					<value>6"</value>
+				</entry>
+			</attributes>
+		</dwg-entity>
+		<dwg-entity cls="AcDbLine" id="2445541413488"
+			ly="SPRK PIPE BL">
+			<ent-start x="-208.72828557612" y="448.884353697453" />
+			<ent-end x="-208.72828557612" y="444.21663974203" />
+		</dwg-entity>
+		<dwg-entity cls="AcDbLine" id="2445541413472"
+			ly="SPRK PIPEMN 2GR">
+			<ent-start x="-234.128209464619" y="481.489237314129" />
+			<ent-end x="-228.574604728291" y="481.489237314129" />
+		</dwg-entity>
+		<dwg-entity cls="AcDbLine" id="2445541413456"
+			ly="SPRK PIPEMN 2GR">
+			<ent-start x="-228.574604728291" y="481.489237314129" />
+			<ent-end x="-228.574604728291" y="444.216639742029" />
+		</dwg-entity>
+		<dwg-entity cls="AcDbLine" id="2445541413440"
+			ly="SPRK PIPE BL">
+			<ent-start x="-317.126409140855" y="444.216639742029" />
+			<ent-end x="-208.72828557612" y="444.216639742029" />
+		</dwg-entity>
+		<dwg-entity cls="AcDbBlockReference" id="2445541413408"
+			ly="sprk-hd-conc" name="sprk-hd-conc">
+			<ent-start x="-208.72828557612" y="448.884353697453" />
+		</dwg-entity>
+	</area-body>
+	<area-options xmlns="http://dwg.autopipes.org">
+		<main-label>M-</main-label>
+		<main-start-no>1</main-start-no>
+		<branch-label>#</branch-label>
+		<branch-start-no>1</branch-start-no>
+		<ignore-shorter-than>1'</ignore-shorter-than>
+		<cut-longer-than>10'6"</cut-longer-than>
+		<cut-branch-into>7'</cut-branch-into>
+		<cut-main-into>10'6" 10' 9'</cut-main-into>
+		<main-cut-clearance>6"</main-cut-clearance>
+	</area-options>
+	<area-id xmlns="http://dwg.autopipes.org">2</area-id>
+	<area-name xmlns="http://dwg.autopipes.org">Area-2</area-name>
+</dwg:area-root>
+

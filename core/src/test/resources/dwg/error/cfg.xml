@@ -1,0 +1,35 @@
+<dwg:dwg-root xmlns:dwg="http://dwg.autopipes.org">
+	<dwg-name xmlns="http://dwg.autopipes.org">Error</dwg-name>
+	<dwg-text-size xmlns="http://dwg.autopipes.org">5.75</dwg-text-size>
+	<dwg-update-date xmlns="http://dwg.autopipes.org">2021-04-05T23:27:46
+	</dwg-update-date>
+	<options-root xmlns="http://dwg.autopipes.org">
+		<layers-root>
+			<layer name="0" type="Output" />
+			<layer name="SPRK-PipeMN-2h" type="Main" sub-type="grooved"
+				main-diameter="D25" vendor="FIRELOCK" />
+			<layer name="SPRK PIPEMN 2GR" type="Main" sub-type="grooved"
+				vendor="FIRELOCK" main-diameter="D2" />
+			<layer name="SPRK PIPE BL" type="Branch">
+				<headcount>
+					<entry xmlns="">
+						<key>1</key>
+						<value>D1</value>
+					</entry>
+					<entry xmlns="">
+						<key>3</key>
+						<value>D15</value>
+					</entry>
+					<entry xmlns="">
+						<key>6</key>
+						<value>D2</value>
+					</entry>
+				</headcount>
+			</layer>
+		</layers-root>
+		<error-color>Magenta</error-color>
+		<weld-if-equal>Y</weld-if-equal>
+		<abco-mode>N</abco-mode>
+	</options-root>
+	<dwg-id xmlns="http://dwg.autopipes.org">1103</dwg-id>
+</dwg:dwg-root>
