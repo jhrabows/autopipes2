@@ -26,6 +26,8 @@
 					</entry>
 				</headcount>
 			</layer>
+			<layer name="spkr-flex" type="Head" sub-type="grooved"
+				vendor="VIC" main-diameter="D1" />
 		</layers-root>
 		<error-color>Magenta</error-color>
 		<weld-if-equal>Y</weld-if-equal>

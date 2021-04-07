@@ -72,7 +72,7 @@
 			<ent-end x="-208.426253915754" y="527.701454802156" />
 		</dwg-entity>
 		<dwg-entity cls="AcDbBlockReference" id="2445541433568"
-			ly="0" name="sprk-hd-flex">
+			ly="spkr-flex" name="sprk-hd-flex">
 			<ent-start x="-317.129286618059" y="527.701454802156" />
 		</dwg-entity>
 		<dwg-entity cls="AcDbBlockReference" id="2445541433424"

@@ -1,6 +1,7 @@
 package org.autopipes.model;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -94,6 +95,16 @@ public class Pipe implements Cloneable, Diametrisable{
 			   }
 		   }
 		   return false;
+	}
+	public static Pipe findHeadPipe(List<Set<Pipe>> ps) {
+		for(Set<Pipe> pp : ps) {
+		   for(Pipe p : pp){
+			   if(p.getDesignation() == Designation.Head){
+				   return p;
+			   }
+		   }			
+		}
+		return null;
 	}
 	public static Diameter maxDiameter(Set<Pipe> pp){
 		Diameter ret = null;

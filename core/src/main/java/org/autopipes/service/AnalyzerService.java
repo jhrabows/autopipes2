@@ -1034,7 +1034,7 @@ public class AnalyzerService {
                     areaBody.getPipeGraph().addVertex(PipeFitting.SINK);
                     sink = true;
         		}
-        		addHeadToPipeGraph(areaBody, pf);
+        		addHeadToPipeGraph(areaBody, pf, opt);
         	}else if(pInfo.getJump() != null){
         		if(!addJumpToPipeGraph(opt, areaBody, pf)){
         			ret = false;
@@ -1044,21 +1044,33 @@ public class AnalyzerService {
         logger.info("-addJumpsAndHeadsToGraph");
         return ret;
     }
-    private void addHeadToPipeGraph(final AreaBody areaBody, final PipeFitting pf){
+    private void addHeadToPipeGraph(final AreaBody areaBody, final PipeFitting pf, final DrawingOptions opt){
 		PointInfo pInfo = areaBody.getPointInfo(pf.getCenter());
 		Pipe pipe = null;
+		String layerName = null;
 		if(pInfo.getBlock() != null){
-			AreaBody.HeadInfo template = pipeConfig.lookupHeadTemplate(pInfo.getBlock().getName());
+			DwgEntity block = pInfo.getBlock();
+			layerName = block.getLy();
+			AreaBody.HeadInfo template = pipeConfig.lookupHeadTemplate(block.getName());
 			pipe = template.getPipe().clone();
 			pf.setJump(template.getJumpLocation());
-		}else{
+		}else if(pInfo.getHead() != null){
 			// unknown head type
+			DwgEntity head = pInfo.getHead();
+			layerName = head.getLy();
 			pipe = new Pipe(Designation.Head);
 	        pipe.setDiameter(takeout.getHeadDiameter());
 	        pipe.setVertical(true);
 	        pf.setJump(Jump.NONE);
 		}
-        areaBody.getPipeGraph().addEdge(pf, PipeFitting.SINK, pipe);
+		if(pipe != null) {
+			DrawingLayer layer = opt.findLayer(layerName);
+			if(layer != null && layer.getType() == Designation.Head) {
+				pipe.setDiameter(layer.getMainDiameter());
+				pipe.setLayerName(layer.getName());
+			}	
+	        areaBody.getPipeGraph().addEdge(pf, PipeFitting.SINK, pipe);			
+		}
     }
     
     private boolean pipesIntersectJump(final AreaBody areaBody, final PipeFitting pf, final Set<Pipe> pipes){
@@ -1510,11 +1522,26 @@ public class AnalyzerService {
    }
     private Attachment determineAttachment(final DrawingOptions opt, List<Set<Pipe>> ps){
     	Attachment ret = null;
+    	String name = null;
     	if(!Pipe.hasMain(ps.get(0))){
-    		return Attachment.threaded; // all branches
+    		ret = Attachment.threaded;
+    		Pipe head = Pipe.findHeadPipe(ps);
+    		if(head == null) {
+        		return ret; // all branches    			
+    		}
+    		// head on branch
+    		name = head.getLayerName();
+    		if(name != null) {
+    		    DrawingLayer layer = opt.findLayer(name);
+    		    if(layer != null) {
+    		    	ret = layer.getSubType();
+    		    }
+    		}
+    		return ret;
+    		
     	}
     	// hasMain
-		String name = Pipe.maxMainName(ps.get(0));
+		name = Pipe.maxMainName(ps.get(0));
 		if(name != null){
 		    DrawingLayer layer = opt.findLayer(name);
 		   	boolean onePiece = true;
@@ -1584,7 +1611,13 @@ public class AnalyzerService {
     }
     private Vendor determineVendor(final DrawingOptions opt, List<Set<Pipe>> ps){
     	Vendor ret = null;
-    	String name = Pipe.maxMainName(ps.get(0));
+    	String name = null;
+    	Pipe head = Pipe.findHeadPipe(ps);
+    	if(head != null) {
+    		name = head.getLayerName();
+    	}else {
+        	name = Pipe.maxMainName(ps.get(0));    		
+    	}
     	if(name != null){
     		ret = opt.findLayer(name).getVendor();
     	}
