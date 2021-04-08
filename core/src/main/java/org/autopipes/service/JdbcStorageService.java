@@ -41,18 +41,21 @@ public class JdbcStorageService implements StorageService {
     	  try{
     	      v = rs.getString(col);
     	  }catch(SQLException e){
-    		  return null; // in case the column is not on the select list
+    		  logger.error("Failed to get string for " + col, e);
     	  }
-    	  try {
-	    	  Reader r = new StringReader(v);
-	    	  Source s = new StreamSource(r);
-	    	  return unmarshaller.unmarshal(s);
-    	  }catch(Exception e){
-    		  logger.info("Failed string=" + v);
-    		  logger.error("Failed to unmarshal " + col, e);
-    		  return null;
+    	  if(v != null) {
+        	  try {
+    	    	  Reader r = new StringReader(v);
+    	    	  Source s = new StreamSource(r);
+    	    	  return unmarshaller.unmarshal(s);
+        	  }catch(Exception e){
+        		  logger.info("Failed string=" + v);
+        		  logger.error("Failed to unmarshal " + col, e);
+        	  }
     	  }
+		  return null; // in case the column is not on the select list
       }
+      
 	  private final class DrawingMapper implements ParameterizedRowMapper<FloorDrawing> {
 		    public FloorDrawing mapRow(final ResultSet rs, final int rowNum) throws SQLException {
 		      FloorDrawing t = new FloorDrawing();
