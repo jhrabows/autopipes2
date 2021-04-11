@@ -1,6 +1,7 @@
 package org.autopipes.core;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,6 +15,7 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.autopipes.model.DrawingArea;
+import org.autopipes.model.DrawingArea.Readiness;
 import org.autopipes.model.FloorDrawing;
 import org.autopipes.service.AnalyzerService;
 import org.junit.Test;
@@ -103,6 +105,25 @@ public class AnalysisServiceTest {
 	}
 	
 	@Test
+	public void testSideMain() throws XmlMappingException, IOException {
+		Resource testflex = new ClassPathResource("/dwg/testflex/cfg.xml");
+		Resource oneside = new ClassPathResource("/dwg/testflex/oneside.xml");
+		assertNotNull(testflex);
+		assertNotNull(oneside);
+		String testflexStr = getResourceAsString(testflex);
+		String onesideStr = getResourceAsString(oneside);
+		FloorDrawing testFlex = (FloorDrawing) getObjectFromXML(testflexStr);
+		DrawingArea oneSide =  (DrawingArea) getObjectFromXML(onesideStr);
+		assertNotNull(testFlex);
+		assertNotNull(oneSide);
+		
+    	analyzerService.validateArea(testFlex, oneSide);
+    	assertTrue(oneSide.getAreaReadiness() == Readiness.Ready);
+    	analyzerService.buildCutSheetReport(testFlex, oneSide);
+		
+	}
+	
+	@Test
 	public void testFlexHead() throws XmlMappingException, IOException {
 		Resource errmain = new ClassPathResource("/dwg/error/cfg.xml");
 		Resource flexhead = new ClassPathResource("/dwg/error/flex-head.xml");
@@ -116,6 +137,7 @@ public class AnalysisServiceTest {
 		assertNotNull(flexHead);
 		
     	analyzerService.validateArea(errMain, flexHead);
+    	assertTrue(flexHead.getAreaReadiness() == Readiness.Ready);
 
 	}
 

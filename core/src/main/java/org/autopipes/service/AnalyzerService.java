@@ -16,36 +16,36 @@ import java.util.TreeMap;
 
 import org.apache.log4j.Logger;
 import org.autopipes.model.AreaBody;
+import org.autopipes.model.AreaBody.Defect;
+import org.autopipes.model.AreaBody.PointInfo;
 import org.autopipes.model.AreaCutSheet;
+import org.autopipes.model.AreaCutSheet.BranchInfo;
+import org.autopipes.model.AreaCutSheet.CutSheetInfo;
 import org.autopipes.model.AreaCutSheet.MainCutSheetInfo;
 import org.autopipes.model.AreaCutSheet.OutletInfo;
 import org.autopipes.model.AreaOptions;
 import org.autopipes.model.DrawingArea;
+import org.autopipes.model.DrawingArea.Readiness;
 import org.autopipes.model.DrawingLayer;
+import org.autopipes.model.DrawingLayer.Designation;
 import org.autopipes.model.DrawingOptions;
 import org.autopipes.model.DwgAng;
 import org.autopipes.model.DwgEntity;
+import org.autopipes.model.DwgEntity.AcClass;
 import org.autopipes.model.DwgPoint;
 import org.autopipes.model.FloorDrawing;
 import org.autopipes.model.Pipe;
 import org.autopipes.model.PipeAttachment;
 import org.autopipes.model.PipeConfig;
 import org.autopipes.model.PipeFitting;
-import org.autopipes.model.AreaBody.Defect;
-import org.autopipes.model.AreaBody.PointInfo;
-import org.autopipes.model.AreaCutSheet.BranchInfo;
-import org.autopipes.model.AreaCutSheet.CutSheetInfo;
-import org.autopipes.model.DrawingArea.Readiness;
-import org.autopipes.model.DrawingLayer.Designation;
-import org.autopipes.model.DwgEntity.AcClass;
 import org.autopipes.model.PipeFitting.Jump;
 import org.autopipes.takeout.Attachment;
 import org.autopipes.takeout.Diameter;
 import org.autopipes.takeout.Fitting;
-import org.autopipes.takeout.TakeoutRepository;
-import org.autopipes.takeout.Vendor;
 import org.autopipes.takeout.Fitting.Direction;
 import org.autopipes.takeout.Fitting.Type;
+import org.autopipes.takeout.TakeoutRepository;
+import org.autopipes.takeout.Vendor;
 import org.autopipes.util.CollectionComparator;
 import org.autopipes.util.CommonDecimal;
 import org.autopipes.util.GraphUtils;
@@ -885,7 +885,8 @@ public class AnalyzerService {
 	}
 
     /**
-     * Scans an area body entities and builds the area Point Map from all their ends.
+     * Scans an area body entities and builds the area Point Map from their ends.
+     * Use only start points and end points of line-segments
      * Ends close within tolerance are snapped together.
      * Verifies that point entities of different type do not overlap.
      * @param areaBody
@@ -894,12 +895,11 @@ public class AnalyzerService {
    public boolean buildPointMap(final AreaBody areaBody){
        logger.info("+buildPointMap");
 	   boolean ret = true;
-	//    Map<DwgPoint, PointInfo> infoMap = areaBody.getPointMap();
 	   areaBody.getPointMap().clear();
     	for(DwgEntity e : areaBody.getDwgEntity()){
     		for(int i = 0; i < 2; i++){
     			DwgPoint newPoint = i == 0 ? e.getEntStart() : e.getEntEnd();
-    			if(newPoint != null){
+    			if(newPoint != null && (i == 0 || e.getCls() == AcClass.AcDbLine)){
     				DwgPoint match = null;
     		        for(DwgPoint p : areaBody.getPointMap().keySet()){
     			        if(planeGeo.pointOnPoint(newPoint, p)){
@@ -967,14 +967,14 @@ public class AnalyzerService {
 
 		SortedMap<Double, DwgPoint> cutMap = new TreeMap<Double, DwgPoint>();
 	   	for(DwgEntity e : areaBody.getDwgEntity()){
-	   		if(e.getEntEnd() == null){
+	   		if(e.getCls() != AcClass.AcDbLine){
 	   			continue; // skip point entities
 	   		}
 	   		DwgPoint start = e.getEntStart();
 	   		DwgPoint end = e.getEntEnd();
-	   		if(start == end){
-	   			PointInfo info = areaBody.getPointInfo(start);
-	   			info.setStatus(Defect.zeroLengthPipe);
+	   		if(start == end || end == null){
+	   			PointInfo pInfo = areaBody.getPointInfo(start);
+				pInfo.setStatus(Defect.zeroLengthPipe);	   			 
 	   			continue;
 	   		}
             cutMap.clear();
@@ -983,7 +983,7 @@ public class AnalyzerService {
 	   				continue; // skip incidences at the extremities
 	   			}
 	   			if(planeGeo.pointOnSegment(p, start, end)){
-	   				cutMap.put(PlaneGeo.distance(start, p), p);
+		   			cutMap.put(PlaneGeo.distance(start, p), p);	   					
 	   			}
 	   		}
 
@@ -1030,11 +1030,9 @@ public class AnalyzerService {
         		}
         	}
         	if(isHead){
-        		if(!sink){
-                    areaBody.getPipeGraph().addVertex(PipeFitting.SINK);
-                    sink = true;
+        		if(!addHeadToPipeGraph(areaBody, pf, opt)) {
+        			ret = false;
         		}
-        		addHeadToPipeGraph(areaBody, pf, opt);
         	}else if(pInfo.getJump() != null){
         		if(!addJumpToPipeGraph(opt, areaBody, pf)){
         			ret = false;
@@ -1044,12 +1042,13 @@ public class AnalyzerService {
         logger.info("-addJumpsAndHeadsToGraph");
         return ret;
     }
-    private void addHeadToPipeGraph(final AreaBody areaBody, final PipeFitting pf, final DrawingOptions opt){
-		PointInfo pInfo = areaBody.getPointInfo(pf.getCenter());
+    private boolean addHeadToPipeGraph(final AreaBody areaBody, final PipeFitting pf, final DrawingOptions opt){
+		boolean ret =  true;
+    	PointInfo pInfo = areaBody.getPointInfo(pf.getCenter());
 		Pipe pipe = null;
 		String layerName = null;
-		if(pInfo.getBlock() != null){
-			DwgEntity block = pInfo.getBlock();
+		DwgEntity block = pInfo.getBlock();
+		if(block != null){
 			layerName = block.getLy();
 			AreaBody.HeadInfo template = pipeConfig.lookupHeadTemplate(block.getName());
 			pipe = template.getPipe().clone();
@@ -1068,9 +1067,37 @@ public class AnalyzerService {
 			if(layer != null && layer.getType() == Designation.Head) {
 				pipe.setDiameter(layer.getMainDiameter());
 				pipe.setLayerName(layer.getName());
-			}	
-	        areaBody.getPipeGraph().addEdge(pf, PipeFitting.SINK, pipe);			
+			}
+			PipeFitting otherFitting = null;
+			if(!pipe.isVertical()) {
+				DwgPoint endPt = block.getEntEnd(); // horizontal, so block-based
+				DwgPoint startPt = pf.getCenter();
+				if(endPt == null || planeGeo.pointOnPoint(startPt, endPt)){
+					PointInfo startInfo = areaBody.getPointMap().get(startPt);
+					startInfo.setStatus(Defect.zeroLengthPipe);
+					ret = false;
+				}else {
+					PointInfo endInfo = areaBody.getPointMap().get(endPt);
+					if(endInfo != null) {
+						endInfo.setStatus(Defect.overlapingSymbols);
+						ret = false;
+					}else {
+						otherFitting = new PipeFitting(endPt);
+						areaBody.getPipeGraph().addVertex(otherFitting);
+					}
+				}
+			}else {
+				// all vertical heads point to an imaginary vertex called sink.
+				otherFitting = PipeFitting.SINK;
+				if(!areaBody.getPipeGraph().containsVertex(PipeFitting.SINK)){
+					 areaBody.getPipeGraph().addVertex(PipeFitting.SINK);
+				}
+			}
+			if(otherFitting != null) {
+		        areaBody.getPipeGraph().addEdge(pf, otherFitting, pipe);							
+			}
 		}
+		return ret;
     }
     
     private boolean pipesIntersectJump(final AreaBody areaBody, final PipeFitting pf, final Set<Pipe> pipes){
@@ -1185,15 +1212,15 @@ public class AnalyzerService {
    	
    	Set<Pipe> vs = getVerticalSet();
    	vs.clear();
-   	Set<Pipe> sS = getSidewallSet();
-   	sS.clear();
+//   	Set<Pipe> sS = getSidewallSet();
+//   	sS.clear();
    	// add all vertices
    	for(Pipe e : entities){
    		if(e.isVertical()){
    			vs.add(e);
-   		}else if(e.getDesignation() == Designation.Head){
-   			sS.add(e);
-   		}else{
+//   		}else if(e.getDesignation() == Designation.Head){
+//   			sS.add(e);
+   		} else{
    		    pg.addVertex(e);
    		}
    	}
@@ -1216,18 +1243,18 @@ public class AnalyzerService {
     if(!vs.isEmpty()){
         ret.add(vs);
     }
-    if(!sS.isEmpty()){
-    	if(ret.size() == 1 && sS.size() == 1){
-    		if(ret.get(0).size() == 1){
-    			ret.get(0).addAll(sS);
-    		}else{
-    			ret.add(sS);
-    		}
-    	}else{
-    		pInfo.setStatus(Defect.wrongSidewallLocation);
-    		return null;
-    	}
-    }
+//    if(!sS.isEmpty()){
+//    	if(ret.size() == 1 && sS.size() == 1){
+//    		if(ret.get(0).size() == 1){
+//    			ret.get(0).addAll(sS);
+//    		}else{
+//    			ret.add(sS);
+//    		}
+//    	}else{
+//    		pInfo.setStatus(Defect.wrongSidewallLocation);
+//    		return null;
+//    	}
+//    }
 
  //  	CollectionComparator<Pipe> comp =  getPipeSetCollectionComparator();
  //  	comp.setAscending(false);
@@ -1299,9 +1326,9 @@ public class AnalyzerService {
    protected boolean atAngle(final AreaBody areaBody, final Pipe e1, final Pipe e2, final double ang){
 	double ang12;
 	if(e1.isVertical() != e2.isVertical()){
-    	ang12 = Math.PI*0.5;
+    	ang12 = Math.PI*0.5; // one vertical, another not
     }else if(e1.isVertical()){
-    	ang12 = Math.PI;
+    	ang12 = Math.PI; // both vertical
     }else{
 	   PipeFitting[] tripple = getPipeFittingTripple();
    	   if(!GraphUtils.tripple(areaBody.getPipeGraph(), e1, e2, tripple)){
@@ -1309,7 +1336,11 @@ public class AnalyzerService {
    	    }
 		ang12 = PlaneGeo.angleMeasure(tripple);
     }
-	return Math.abs(ang - ang12) < planeGeo.getAngularTolerance();
+	// directions of head-segments come from bounding box and are approximate
+	boolean sidewallComparison = e1.getDesignation() == Designation.Head && !e1.isVertical()
+			|| e2.getDesignation() == Designation.Head && !e2.isVertical();
+	double tol = sidewallComparison ? Math.PI*0.25 : planeGeo.getAngularTolerance();
+	return Math.abs(ang - ang12) < tol;
    }
 
    /**
@@ -1378,7 +1409,7 @@ public class AnalyzerService {
       // order vertices with those attached to main first (excluding sink-vertex)
    	  List<PipeFitting> mainFirst = new ArrayList<PipeFitting>();
    	  mainFirst.addAll(areaBody.getPipeGraph().vertexSet());
-   	  mainFirst.remove(PipeFitting.SINK);
+//   	  mainFirst.remove(PipeFitting.SINK);
    	  Collections.sort(mainFirst, new Comparator<PipeFitting>(){
 //		@Override
 		public int compare(PipeFitting o1, PipeFitting o2) {
@@ -1395,7 +1426,10 @@ public class AnalyzerService {
 	});
    	  
       for(PipeFitting pf : mainFirst){
-          PointInfo pInfo = areaBody.getPointInfo(pf.getCenter());
+          PointInfo pInfo = areaBody.getPointMap().get(pf.getCenter());
+          if(pInfo == null) {
+        	  continue;
+          }
           /*
           Set<DrawingLayer> layers = getDrawingLayerSet();
        	  getMaxLayers(opt, areaBody, pf, layers);
@@ -1415,6 +1449,7 @@ public class AnalyzerService {
         	  continue;
           }
           if(ps.get(0).size() > 2){
+        	  // implies that each parallel set has at most 2 items
            	pInfo.setStatus(Defect.pipeOverlap);
        		logger.error(Defect.pipeOverlap);
            	ret = false;
@@ -1634,9 +1669,10 @@ public class AnalyzerService {
     			Attachment a = null;
     			if(i >= 2){
         			Pipe p = pipes.get(i);
-        			if(p.getDesignation() == Designation.Main){
+        			String layerName = p.getLayerName();
+    				DrawingLayer layer = layerName != null ? opt.findLayer(layerName): null;
+        			if((p.getDesignation() == Designation.Main||p.getDesignation() == Designation.Head) && layer != null){
         				a = Attachment.weldedGroove;
-        				DrawingLayer layer = opt.findLayer(p.getLayerName());
         				Attachment subType = layer.getSubType();
         				if(subType == Attachment.threaded || subType == Attachment.welded){
         					a = Attachment.welded;
@@ -1893,10 +1929,10 @@ public class AnalyzerService {
 		   outlet.setDiameter(d);
 		   if(pipeFitting.getJump() == Jump.NONE){ // plane orientation
 				   // find orientation of tee
-			   if(sidePipe.getDesignation() == Designation.Head){
+//			   if(sidePipe.getDesignation() == Designation.Head){
 				   // for horizontal/unknown heads outlet location cannot be determined
-				   outlet.setSideCount(0);
-			   }else{
+//				   outlet.setSideCount(0);
+//			   }else{
 				   PipeFitting startOfToPipe = areaBody.getEndFitting(toPipe);
 				   if(startOfToPipe == pipeFitting){
 					   startOfToPipe = areaBody.getStartFitting(toPipe);
@@ -1908,7 +1944,7 @@ public class AnalyzerService {
 				   Point[] triple = {startOfToPipe, pipeFitting, endOfSidePipe};
 				   double sign = planeGeo.signAngleMeasure(triple);
 				   outlet.setSideCount(sign < 0 ? -1 : 1);
-			   }
+			   
 		   }		   
 		   if(!isWeld){
 				Diameter mechd = mechanicalDiameter(toPipe.getDiameter(), outlet.getDiameter());
