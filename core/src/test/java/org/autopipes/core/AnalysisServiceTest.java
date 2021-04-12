@@ -106,8 +106,27 @@ public class AnalysisServiceTest {
 	
 	@Test
 	public void testSideMain() throws XmlMappingException, IOException {
-		Resource testflex = new ClassPathResource("/dwg/testflex/cfg.xml");
 		Resource oneside = new ClassPathResource("/dwg/testflex/oneside.xml");
+		testOneOnMain(oneside);
+	}
+	@Test
+	public void testFlexSideMain() throws XmlMappingException, IOException {
+		Resource oneside = new ClassPathResource("/dwg/testflex/onesideflex.xml");
+		testOneOnMain(oneside);
+	}
+	@Test
+	public void testFlexUpMain() throws XmlMappingException, IOException {
+		Resource oneside = new ClassPathResource("/dwg/testflex/oneflexup.xml");
+		testOneOnMain(oneside);
+	}
+	@Test
+	public void testFlexPendentMain() throws XmlMappingException, IOException {
+		Resource oneside = new ClassPathResource("/dwg/testflex/oneflexpendent.xml");
+		testOneOnMain(oneside);
+	}
+
+	private void testOneOnMain(Resource oneside) throws XmlMappingException, IOException {
+		Resource testflex = new ClassPathResource("/dwg/testflex/cfg.xml");
 		assertNotNull(testflex);
 		assertNotNull(oneside);
 		String testflexStr = getResourceAsString(testflex);

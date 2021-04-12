@@ -36,6 +36,14 @@
           <ref bean="sprk-hd-up"/>
         </entry>
         <entry>
+          <key><value>sprk-hd-flex-up</value></key>
+          <ref bean="sprk-hd-flex-up"/>
+        </entry>
+        <entry>
+          <key><value>sprk-hd-flex-pendent</value></key>
+          <ref bean="sprk-hd-flex-pendent"/>
+        </entry>
+        <entry>
           <key><value>sidewall</value></key>
           <ref bean="sidewall"/>
         </entry>
@@ -129,6 +137,18 @@
   	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">BOTTOM</value></property>
   </bean>
   
+  <bean id="sprk-hd-flex-up" class="org.autopipes.model.AreaBody$HeadInfo">
+  	<property name="pipe" ref="otherOnSprigHead"></property>
+  	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">BOTTOM</value></property>
+  </bean>
+  
+  <bean id="sprk-hd-flex-pendent" class="org.autopipes.model.AreaBody$HeadInfo">
+  	<property name="pipe" ref="otherOnSprigHead"></property>
+  	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">TOP</value></property>
+  </bean>
+
+
+  
   <bean id="sidewall" class="org.autopipes.model.AreaBody$HeadInfo">
   	<property name="pipe" ref="sidewallHead"></property>
   	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">NONE</value></property>
@@ -144,7 +164,6 @@
   	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">NONE</value></property>
   </bean>
 
-  
   <bean id="ec-sidewall" class="org.autopipes.model.AreaBody$HeadInfo">
   	<property name="pipe" ref="ecSidewallHead"></property>
   	<property name="jumpLocation"><value type="org.autopipes.model.PipeFitting$Jump">NONE</value></property>
@@ -265,6 +284,7 @@
       <property name="diameter"><value type="org.autopipes.takeout.Diameter" >D1</value></property>
       <property name="ignored"><value type="java.lang.Boolean" >true</value></property>
   </bean>
+  
 
      
 </beans>
