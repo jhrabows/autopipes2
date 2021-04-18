@@ -13,6 +13,7 @@ import org.autopipes.model.FloorDrawing;
 import org.autopipes.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,30 +24,30 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "/json")
 public class JsonResponseController {
     private static Logger logger = Logger.getLogger(JsonResponseController.class);
-	
-	@Autowired
+
+    @Autowired
 	@Qualifier("storageService")
 	private StorageService storageService;
 
-	@RequestMapping(value = "/drawing", method = RequestMethod.GET) //, produces = "application/json")
+	@RequestMapping(value = "/drawing", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<FloorDrawing> getAllDrawings() {
 		logger.info("getDrawings");
 		return storageService.findAllDrawings();
 	}
 	
-	@RequestMapping(value = "/drawing/{dwgId}/area", method = RequestMethod.GET) //, produces = "application/json")
+	@RequestMapping(value = "/drawing/{dwgId}/area", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<DrawingArea> getDrawingAreas(@PathVariable long dwgId) {
 		logger.info("getDrawingAreas(" + dwgId + ")");
 		return storageService.findDrawingAreas(dwgId);
 	}
 	
-	@RequestMapping(value = "/area", method = RequestMethod.GET) //, produces = "application/json")
+	@RequestMapping(value = "/area", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<DrawingArea> getAllDrawingAreas() {
 		logger.info("getAllDrawingAreas()");
 		return storageService.findAllDrawingAreas();
 	}
 
-	@RequestMapping(value = "/drawing/{dwgId}/area/{areaId}/branch", method = RequestMethod.GET) //, produces = "application/json")
+	@RequestMapping(value = "/drawing/{dwgId}/area/{areaId}/branch", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Map<Integer, BranchInfo> getBranchInfoForArea(@PathVariable final long dwgId, @PathVariable final long areaId){
     try{
 		logger.info("getBranchInfoForArea(" + dwgId + "," + areaId + ")");
@@ -67,7 +68,7 @@ public class JsonResponseController {
     }
     }
 	
-	@RequestMapping(value = "/drawing/{dwgId}/area/{areaId}", method = RequestMethod.GET) //, produces = "application/json")
+	@RequestMapping(value = "/drawing/{dwgId}/area/{areaId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody AreaCutSheet getCutSheetForArea(@PathVariable final long dwgId, @PathVariable final long areaId){
     try{
 		logger.info("getCutSheetForArea(" + dwgId + "," + areaId + ")");
@@ -90,7 +91,7 @@ public class JsonResponseController {
 
 
 	
-	@RequestMapping(value = "/employees", method = RequestMethod.GET) //, produces = "application/json")
+	@RequestMapping(value = "/employees", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<Employee> getAllEmployee() {
 
 		// We will set some dummy data and send it as response
