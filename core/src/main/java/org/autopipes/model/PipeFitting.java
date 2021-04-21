@@ -128,10 +128,10 @@ public class PipeFitting implements Point, Cloneable{
 		this.headCount = headCount;
 	}
 	public Boolean getHoleBased() {
-		return fitting.isHoleBased();
+		return fitting != null ? fitting.isHoleBased() : null;
 	}
 	public Boolean getCouplingContinuation(){
-		return fitting.isCouplingContinuation();
+		return fitting != null ?  fitting.isCouplingContinuation() : null;
 	}
 	public Jump getJump() {
 		return jump;

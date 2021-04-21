@@ -1,5 +1,6 @@
 package org.autopipes.service;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,6 +53,7 @@ import org.autopipes.util.GraphUtils;
 import org.autopipes.util.PlaneGeo;
 import org.autopipes.util.PlaneGeo.Divider;
 import org.autopipes.util.PlaneGeo.Point;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.jgrapht.Graphs;
 import org.jgrapht.UndirectedGraph;
 import org.jgrapht.alg.ConnectivityInspector;
@@ -1905,7 +1907,7 @@ public class AnalyzerService {
     */
    public OutletInfo outletInfoForFitting(DrawingArea area, BigDecimal bdOffest, Pipe toPipe, PipeFitting pipeFitting,
 		   boolean isWeld, Pipe sidePipe){
-	   
+	  logger.info("+outletInfoForFitting");
 	   AreaBody areaBody = area.getAreaBody();
 	   OutletInfo outlet = new OutletInfo();
 	   
@@ -1928,6 +1930,8 @@ public class AnalyzerService {
 		   Diameter d = sidePipe.getDiameter();
 		   outlet.setDiameter(d);
 		   if(pipeFitting.getJump() == Jump.NONE){ // plane orientation
+			   ObjectMapper om = new ObjectMapper();
+
 				   // find orientation of tee
 //			   if(sidePipe.getDesignation() == Designation.Head){
 				   // for horizontal/unknown heads outlet location cannot be determined
@@ -1941,9 +1945,23 @@ public class AnalyzerService {
 				   if(endOfSidePipe == pipeFitting){
 					   endOfSidePipe = areaBody.getStartFitting(sidePipe);
 				   }
-				   Point[] triple = {startOfToPipe, pipeFitting, endOfSidePipe};
-				   double sign = planeGeo.signAngleMeasure(triple);
-				   outlet.setSideCount(sign < 0 ? -1 : 1);
+				   boolean hasAngle = true;
+				   PipeFitting[] triple = {startOfToPipe, pipeFitting, endOfSidePipe};
+				   for(PipeFitting pf : triple) {
+					   if(pf == null || pf.getCenter() == null) {
+						   hasAngle = false;
+					   }
+				   }
+				   if(hasAngle) {
+					   double sign = planeGeo.signAngleMeasure(triple);
+					   outlet.setSideCount(sign < 0 ? -1 : 1);					   
+				   }else {
+					   try {
+						logger.error("Side pipe without end point (cannot position): " + om.writeValueAsString(sidePipe));
+					   } catch (IOException e) {
+							 e.printStackTrace();
+					   }				   
+				   }
 			   
 		   }		   
 		   if(!isWeld){
@@ -1951,6 +1969,7 @@ public class AnalyzerService {
 				outlet.setDiameter(mechd);
 		   }  
 	   } 
+	logger.info("-outletInfoForFitting");
 	   return outlet;
    }
    /*
