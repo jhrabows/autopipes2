@@ -1,24 +1,35 @@
 package org.autopipes.takeout;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.math.BigDecimal;
 
 import org.apache.log4j.Logger;
 import org.autopipes.takeout.TakeoutInfo.Cut;
-import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-public class SpringTest  extends AbstractDependencyInjectionSpringContextTests{
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration({"/test-context.xml"})
+public class SpringTest{
+// AbstractDependencyInjectionSpringContextTests{
     private static Logger logger = Logger.getLogger(SpringTest.class);
 
     public SpringTest(){
-    	super();
-	    setAutowireMode(AbstractDependencyInjectionSpringContextTests.AUTOWIRE_BY_NAME);
+//    	super();
+//	    setAutowireMode(AbstractDependencyInjectionSpringContextTests.AUTOWIRE_BY_NAME);
     }
     // specify the BeanConfigurationFiles to use for auto-wiring the properties of this class
-	@Override
-	protected String[] getConfigLocations() {
-	        return new String[]{"test-context.xml"};
-	    }
+//	@Override
+//	protected String[] getConfigLocations() {
+//	        return new String[]{"test-context.xml"};
+//	    }
 
+    @Test
 	public void testSpringSetup(){
         assertNotNull(root);
         logger.info(root);
@@ -36,6 +47,7 @@ public class SpringTest  extends AbstractDependencyInjectionSpringContextTests{
 	}
 
 	// injected by Spring
+    @Autowired
 	private TakeoutRepository root;
 
 	public TakeoutRepository getTakeoutRepo() {
