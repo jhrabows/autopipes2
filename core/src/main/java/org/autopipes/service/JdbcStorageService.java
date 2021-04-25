@@ -41,7 +41,8 @@ public class JdbcStorageService implements StorageService {
     	  try{
     	      v = rs.getString(col);
     	  }catch(SQLException e){
-    		  logger.error("Failed to get string for " + col, e);
+    		  // column not part of this result set
+    		  logger.info("Failed to get string for " + col);
     	  }
     	  if(v != null) {
         	  try {
@@ -65,7 +66,6 @@ public class JdbcStorageService implements StorageService {
 		      cal.setTime(rs.getTimestamp("upd_date"));
 		      t.setDwgUpdateDate(cal);
 		      t.setDwgTextSize(rs.getBigDecimal("text_size").doubleValue());
-
 		      DrawingOptions opt = (DrawingOptions)unmarshalString(rs, "configuration");
 		      t.setOptionsRoot(opt);
 			  return t;
@@ -101,12 +101,19 @@ public class JdbcStorageService implements StorageService {
 			logger.info("+init");
 			  File schemaFile = resource.getFile();
 			  int length = (int)schemaFile.length();
-
-			  Reader reader = new FileReader(schemaFile);
-			  CharBuffer cb = CharBuffer.allocate(length);
-			  reader.read(cb);
-			  cb.position(0);
-			  String[] schema = cb.toString().split(schemaSeparator);
+			  String[] schema = new String[] {};
+			  Reader reader = null;
+			  try {
+				  reader = new FileReader(schemaFile);
+				  CharBuffer cb = CharBuffer.allocate(length);
+				  reader.read(cb);
+				  cb.position(0);
+				  schema = cb.toString().split(schemaSeparator);
+			  }finally {
+				  if(reader != null) {
+					  reader.close();
+				  }
+			  }
 				for(String stmt : schema){
 					if(stmt.trim().length() > 0){
 						try {
@@ -138,7 +145,7 @@ public class JdbcStorageService implements StorageService {
 	  public List<DrawingArea> findDrawingAreas(final Long dwgId){
 		  String sql = "SELECT drawing_id, area_id, area_name, area_readiness, defect_count  FROM floor_area where drawing_id=?";
 		  RowMapper<DrawingArea> mapper = new AreaMapper();
-		  return sjt.query(sql, mapper, dwgId);
+		  return sjt.query(sql, new Object[] {dwgId}, mapper);
 	  }
 
 	  public List<FloorDrawing> findAllDrawings(){
@@ -150,7 +157,7 @@ public class JdbcStorageService implements StorageService {
 		  String sql = "SELECT * FROM floor_drawing where id=?";
 		  RowMapper<FloorDrawing> mapper = new DrawingMapper();
 		  try {
-			      FloorDrawing ret = sjt.queryForObject(sql, mapper, id);
+			      FloorDrawing ret = sjt.queryForObject(sql, new Object[] {id}, mapper);
 			      return ret;
 			  } catch (EmptyResultDataAccessException e){
 				return null;
@@ -168,7 +175,7 @@ public class JdbcStorageService implements StorageService {
 		  sql += " FROM floor_area where drawing_id=? and area_id=?";
 		  RowMapper<DrawingArea> mapper = new AreaMapper();
 		  try {
-			  DrawingArea ret = sjt.queryForObject(sql, mapper, dwgId, areaId);
+			  DrawingArea ret = sjt.queryForObject(sql, new Object[] {dwgId, areaId}, mapper);
 			  if(ret.getAreaCutSheet() != null){
 				  ret.getAreaCutSheet().postDeserialize();
 			  }
