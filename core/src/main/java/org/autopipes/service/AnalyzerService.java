@@ -1929,7 +1929,7 @@ public class AnalyzerService {
 	   if(sidePipe != null){
 		   Diameter d = sidePipe.getDiameter();
 		   outlet.setDiameter(d);
-		   if(pipeFitting.getJump() == Jump.NONE){ // plane orientation
+		   if(pipeFitting.getJump() == Jump.NONE && !sidePipe.isVertical()){ // plane orientation
 			   ObjectMapper om = new ObjectMapper();
 
 				   // find orientation of tee

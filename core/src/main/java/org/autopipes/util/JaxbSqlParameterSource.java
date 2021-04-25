@@ -6,13 +6,15 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.bind.JAXBContext;
 import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.oxm.Marshaller;
+import javax.xml.bind.Marshaller;
 
 /**
  * A variant of bean parameter source which supports object-valued properties.
@@ -26,8 +28,10 @@ import org.springframework.oxm.Marshaller;
  *
  */
 public class JaxbSqlParameterSource implements SqlParameterSource {
+	private static Logger logger = Logger.getLogger(JaxbSqlParameterSource.class);
+
 	private final MapSqlParameterSource ms;
-	public JaxbSqlParameterSource(final Object bean, final Marshaller marshaller)throws Exception {
+	public JaxbSqlParameterSource(final Object bean)throws Exception {
 		ms = new MapSqlParameterSource();
 		BeanPropertySqlParameterSource bs = new BeanPropertySqlParameterSource(bean);
 		for(String paramName : bs.getReadablePropertyNames()){
@@ -40,7 +44,7 @@ public class JaxbSqlParameterSource implements SqlParameterSource {
 			if(pkg == null || pkg.startsWith("java.lang")
 					|| paramValue instanceof BigDecimal
 					|| paramValue instanceof Calendar){
-				// pass-through primitive types
+				// pass-through primitive types and nulls
 				ms.addValue(paramName, paramValue);
 			}else if(paramValue instanceof Enum){
 				ms.addValue(paramName, paramValue.toString());
@@ -49,10 +53,17 @@ public class JaxbSqlParameterSource implements SqlParameterSource {
 				continue;
 			}else{
 			    //pickle everything else (presumably complex type)
+				JAXBContext context = JAXBContext.newInstance(paramValue.getClass());
+				Marshaller m = context.createMarshaller();
+				m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 				StringWriter writer = new StringWriter();
 				Result res = new StreamResult(writer);
-				marshaller.marshal(paramValue, res);
+			//	marshaller.marshal(paramValue, res);
+				m.marshal(paramValue, res);
 				ms.addValue(paramName, writer.toString()/*, Types.CLOB*/);
+				logger.debug("(new)" + paramName + "=" + writer.toString());
+
+
 			}
 		}
 	}

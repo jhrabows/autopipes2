@@ -11,6 +11,8 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.sql.DataSource;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 
@@ -30,13 +32,13 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.oxm.Marshaller;
-import org.springframework.oxm.Unmarshaller;
+//import org.springframework.oxm.Marshaller;
+//import org.springframework.oxm.Unmarshaller;
 
 public class JdbcStorageService implements StorageService {
 	  private static Logger logger = Logger.getLogger(JdbcStorageService.class);
 
-      private Object unmarshalString(final ResultSet rs, final String col){
+      private Object unmarshalString(final ResultSet rs, final String col, Class<? extends Object> cls){
     	  String v = null;
     	  try{
     	      v = rs.getString(col);
@@ -46,9 +48,11 @@ public class JdbcStorageService implements StorageService {
     	  }
     	  if(v != null) {
         	  try {
+  				JAXBContext context = JAXBContext.newInstance(cls);
+  				Unmarshaller u = context.createUnmarshaller();
     	    	  Reader r = new StringReader(v);
     	    	  Source s = new StreamSource(r);
-    	    	  return unmarshaller.unmarshal(s);
+    	    	  return  u.unmarshal(s);    // unmarshaller.unmarshal(s);
         	  }catch(Exception e){
         		  logger.info("Failed string=" + v);
         		  logger.error("Failed to unmarshal " + col, e);
@@ -66,7 +70,7 @@ public class JdbcStorageService implements StorageService {
 		      cal.setTime(rs.getTimestamp("upd_date"));
 		      t.setDwgUpdateDate(cal);
 		      t.setDwgTextSize(rs.getBigDecimal("text_size").doubleValue());
-		      DrawingOptions opt = (DrawingOptions)unmarshalString(rs, "configuration");
+		      DrawingOptions opt = (DrawingOptions)unmarshalString(rs, "configuration", DrawingOptions.class);
 		      t.setOptionsRoot(opt);
 			  return t;
 			}
@@ -79,18 +83,18 @@ public class JdbcStorageService implements StorageService {
 		      t.setAreaName(rs.getString("area_name"));
 		      t.setAreaReadiness(DrawingArea.Readiness.valueOf(rs.getString("area_readiness")));
               t.setDefectCount(rs.getInt("defect_count"));
-		      AreaBody body = (AreaBody)unmarshalString(rs, "area");
+		      AreaBody body = (AreaBody)unmarshalString(rs, "area", AreaBody.class);
 		      t.setAreaBody(body);
-		      AreaOptions options = (AreaOptions)unmarshalString(rs, "options");
+		      AreaOptions options = (AreaOptions)unmarshalString(rs, "options", AreaOptions.class);
 		      t.setAreaOptions(options);
-		      AreaCutSheet cutSheet = (AreaCutSheet)unmarshalString(rs, "cut_sheet");
+		      AreaCutSheet cutSheet = (AreaCutSheet)unmarshalString(rs, "cut_sheet", AreaCutSheet.class);
 		      t.setAreaCutSheet(cutSheet);
 		      return t;
 			}
       }
 
-      private Marshaller marshaller;
-      private Unmarshaller unmarshaller;
+//      private Marshaller marshaller;
+//      private Unmarshaller unmarshaller;
 	  private DataSource dataSource;
 	  private Resource resource;
 	  private String schemaSeparator;
@@ -231,7 +235,7 @@ public class JdbcStorageService implements StorageService {
 		  if(dwg.getOptionsRoot() != null){
 			  dwg.getOptionsRoot().preSerialize();
 		  }
-		  JaxbSqlParameterSource ps = new JaxbSqlParameterSource(dwg, marshaller);
+		  JaxbSqlParameterSource ps = new JaxbSqlParameterSource(dwg);
 		  String sql = null;
 		  if(dwg.getId() == null){
 			  KeyHolder kh = new GeneratedKeyHolder();
@@ -301,7 +305,7 @@ public class JdbcStorageService implements StorageService {
 
 			  sql += " WHERE area_id = :areaId AND drawing_id = :drawingId";
 		  }
-		  JaxbSqlParameterSource ps = new JaxbSqlParameterSource(area, marshaller);
+		  JaxbSqlParameterSource ps = new JaxbSqlParameterSource(area);
   		  npjt.update(sql, ps);
 		  return area;
 	  }
@@ -325,23 +329,4 @@ public class JdbcStorageService implements StorageService {
 		schemaSeparator = separator;
 	}
 
-
-	public Marshaller getMarshaller() {
-		return marshaller;
-	}
-
-
-	public void setMarshaller(final Marshaller marshaller) {
-		this.marshaller = marshaller;
-	}
-
-
-	public Unmarshaller getUnmarshaller() {
-		return unmarshaller;
-	}
-
-
-	public void setUnmarshaller(final Unmarshaller unmarshaller) {
-		this.unmarshaller = unmarshaller;
-	}
 }

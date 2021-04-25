@@ -28,9 +28,10 @@
     <property name="dataSource" ref="dataSource"/>
     <property name="schema" value="${jdbc.schema}"/>
     <property name="schemaSeparator" value="${jdbc.schema.separator}"/>
+    <!-- 
     <property name="marshaller" ref="jaxb2Marshaller"/>
     <property name="unmarshaller" ref="jaxb2Marshaller"/>
-    
+     -->
     <dwr:remote javascript="Storage">
         <dwr:include method="findAllDrawings"/>
         <dwr:include method="findDrawingAreas"/>
