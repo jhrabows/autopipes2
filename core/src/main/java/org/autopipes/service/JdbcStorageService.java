@@ -25,9 +25,9 @@ import org.autopipes.util.JaxbSqlParameterSource;
 import org.springframework.core.io.Resource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
-import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.oxm.Marshaller;
@@ -56,7 +56,7 @@ public class JdbcStorageService implements StorageService {
 		  return null; // in case the column is not on the select list
       }
       
-	  private final class DrawingMapper implements ParameterizedRowMapper<FloorDrawing> {
+	  private final class DrawingMapper implements RowMapper<FloorDrawing> {
 		    public FloorDrawing mapRow(final ResultSet rs, final int rowNum) throws SQLException {
 		      FloorDrawing t = new FloorDrawing();
 		      t.setId(rs.getBigDecimal("id").longValue());
@@ -71,7 +71,7 @@ public class JdbcStorageService implements StorageService {
 			  return t;
 			}
       }
-	  private final class AreaMapper implements ParameterizedRowMapper<DrawingArea> {
+	  private final class AreaMapper implements RowMapper<DrawingArea> {
 		    public DrawingArea mapRow(final ResultSet rs, final int rowNum) throws SQLException {
 		      DrawingArea t = new DrawingArea();
 		      t.setDrawingId(rs.getBigDecimal("drawing_id").longValue());
@@ -95,7 +95,7 @@ public class JdbcStorageService implements StorageService {
 	  private Resource resource;
 	  private String schemaSeparator;
 	  private NamedParameterJdbcTemplate npjt;
-	  private SimpleJdbcTemplate sjt;
+	  private JdbcTemplate sjt;
 
 	  public void init() throws Exception{
 			logger.info("+init");
@@ -122,7 +122,7 @@ public class JdbcStorageService implements StorageService {
       public Long maxAreaId(final Long dwgId){
 		  String sql = "SELECT MAX(area_id) FROM floor_area where drawing_id=?";
 		  try {
-			    Long ret = sjt.queryForLong(sql, dwgId);
+			    Long ret = sjt.queryForObject(sql, new Object[] { dwgId}, Long.class);
 			    return ret == null ? 0L : ret;
 			  } catch (EmptyResultDataAccessException e){
 				return 0L;
@@ -131,24 +131,24 @@ public class JdbcStorageService implements StorageService {
       
 	  public List<DrawingArea> findAllDrawingAreas(){
 		  String sql = "SELECT drawing_id, area_id, area_name, area_readiness, defect_count  FROM floor_area";
-		  ParameterizedRowMapper<DrawingArea> mapper = new AreaMapper();
+		  RowMapper<DrawingArea> mapper = new AreaMapper();
 		  return sjt.query(sql, mapper);
 	  }
 
 	  public List<DrawingArea> findDrawingAreas(final Long dwgId){
 		  String sql = "SELECT drawing_id, area_id, area_name, area_readiness, defect_count  FROM floor_area where drawing_id=?";
-		  ParameterizedRowMapper<DrawingArea> mapper = new AreaMapper();
+		  RowMapper<DrawingArea> mapper = new AreaMapper();
 		  return sjt.query(sql, mapper, dwgId);
 	  }
 
 	  public List<FloorDrawing> findAllDrawings(){
 		  String sql = "SELECT id, name, upd_date, text_size FROM floor_drawing";
-		  ParameterizedRowMapper<FloorDrawing> mapper = new DrawingMapper();
+		  RowMapper<FloorDrawing> mapper = new DrawingMapper();
 		  return sjt.query(sql, mapper);
 	  }
 	  public FloorDrawing findOneDrawing(final Long id){
 		  String sql = "SELECT * FROM floor_drawing where id=?";
-		  ParameterizedRowMapper<FloorDrawing> mapper = new DrawingMapper();
+		  RowMapper<FloorDrawing> mapper = new DrawingMapper();
 		  try {
 			      FloorDrawing ret = sjt.queryForObject(sql, mapper, id);
 			      return ret;
@@ -166,7 +166,7 @@ public class JdbcStorageService implements StorageService {
 			  sql += ", cut_sheet";
 		  }
 		  sql += " FROM floor_area where drawing_id=? and area_id=?";
-		  ParameterizedRowMapper<DrawingArea> mapper = new AreaMapper();
+		  RowMapper<DrawingArea> mapper = new AreaMapper();
 		  try {
 			  DrawingArea ret = sjt.queryForObject(sql, mapper, dwgId, areaId);
 			  if(ret.getAreaCutSheet() != null){
@@ -191,7 +191,7 @@ public class JdbcStorageService implements StorageService {
 		  String sql = "SELECT id FROM floor_drawing WHERE " + propertyName + "=?";
 
 		  try {
-		    return sjt.queryForLong(sql, value);
+		    return sjt.queryForObject(sql, new Object[] {value}, Long.class);
 		  } catch (EmptyResultDataAccessException e){
 			return null;
 		  }
@@ -200,7 +200,7 @@ public class JdbcStorageService implements StorageService {
 		  String sql = "SELECT area_id FROM floor_area WHERE drawing_id=? AND  " + propertyName + "=?";
 
 		  try {
-		    return sjt.queryForLong(sql, drawingId, value);
+		    return sjt.queryForObject(sql, new Object[] {drawingId, value}, Long.class);
 		  } catch (EmptyResultDataAccessException e){
 			return null;
 		  }
@@ -301,7 +301,7 @@ public class JdbcStorageService implements StorageService {
 
 	  public void setDataSource(final DataSource dataSource) {
 		    npjt = new NamedParameterJdbcTemplate(dataSource);
-		    sjt = new SimpleJdbcTemplate(dataSource);
+		    sjt = new JdbcTemplate(dataSource);
 			this.dataSource = dataSource;
 		  }
 	  public void setSchema(final Resource resource) {
