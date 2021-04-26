@@ -11,9 +11,7 @@
 	<modules>
 		<module>takeout</module>
 		<module>core</module>
-		<module>mock</module>
 		<module>servlet</module>
-		<module>rest</module>
 	</modules>
 	
   <properties>
