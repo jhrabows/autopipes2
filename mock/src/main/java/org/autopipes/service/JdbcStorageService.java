@@ -2,15 +2,11 @@ package org.autopipes.service;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Reader;
-import java.io.StringReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
-import javax.xml.transform.Source;
-import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
@@ -22,9 +18,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.JavaType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
-import org.springframework.oxm.Marshaller;
-import org.springframework.oxm.Unmarshaller;
-import org.springframework.oxm.XmlMappingException;
 
 // Mock version
 public class JdbcStorageService  implements StorageService  {
@@ -34,8 +27,8 @@ public class JdbcStorageService  implements StorageService  {
 	  private static final long TEST2_ID = 943L;
 	  private static final long WELD_ON_BR_ID = 1083L;
  
-      private Marshaller marshaller;
-      private Unmarshaller unmarshaller;
+//      private Marshaller marshaller;
+//      private Unmarshaller unmarshaller;
 	
       @Value("classpath:/rest/findAllDrawings.json")
       private Resource allDrawings;
@@ -165,11 +158,11 @@ public class JdbcStorageService  implements StorageService  {
 		return null;
 	}
 	
-	public Object getObjectFromXML(String src) throws XmlMappingException, IOException {
-  	  Reader r = new StringReader(src);
-  	  Source s = new StreamSource(r);
-  	  return unmarshaller.unmarshal(s);
-	}
+//	public Object getObjectFromXML(String src) throws XmlMappingException, IOException {
+//  	  Reader r = new StringReader(src);
+//  	  Source s = new StreamSource(r);
+//  	  return unmarshaller.unmarshal(s);
+//	}
 	
 	public Object getObjectFromJSONList(String src, Class<?> elementClass) throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
@@ -202,22 +195,22 @@ public class JdbcStorageService  implements StorageService  {
         return ret;
     }
 
-	public Unmarshaller getUnmarshaller() {
-		return unmarshaller;
-	}
-
-	public void setUnmarshaller(Unmarshaller unmarshaller) {
-		this.unmarshaller = unmarshaller;
-	}
-
-	public Marshaller getMarshaller() {
-		return marshaller;
-	}
-
-
-	public void setMarshaller(final Marshaller marshaller) {
-		this.marshaller = marshaller;
-	}
+//	public Unmarshaller getUnmarshaller() {
+//		return unmarshaller;
+//	}
+//
+//	public void setUnmarshaller(Unmarshaller unmarshaller) {
+//		this.unmarshaller = unmarshaller;
+//	}
+//
+//	public Marshaller getMarshaller() {
+//		return marshaller;
+//	}
+//
+//
+//	public void setMarshaller(final Marshaller marshaller) {
+//		this.marshaller = marshaller;
+//	}
 	public void setDataSource(final DataSource dataSource) {}
 	public DataSource getDataSource() {return null;}
 

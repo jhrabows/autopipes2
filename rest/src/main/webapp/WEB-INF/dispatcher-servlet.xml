@@ -31,6 +31,7 @@
 
 
 <!-- Jaxb2 configuration: list of application classes -->
+<!-- 
     <bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
         <property name="classesToBeBound">
             <list>
@@ -51,7 +52,7 @@
             </map>
         </property>
     </bean>
-
+ -->
   <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName"  value="java:comp/env/jdbc/OracleDS"  />
   </bean>

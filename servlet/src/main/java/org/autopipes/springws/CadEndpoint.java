@@ -14,6 +14,7 @@ import org.autopipes.model.RenderDwg;
 import org.autopipes.service.AnalyzerService;
 import org.autopipes.service.ReportingService;
 import org.autopipes.service.StorageService;
+import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 
@@ -24,8 +25,9 @@ public class CadEndpoint {
 	StorageService storageService;
 	AnalyzerService analyzerService;
 	ReportingService reportingService;
+	Jaxb2Marshaller marshaller;
 
-//
+	//
 // Web Service calls
 //
     @PayloadRoot(localPart = "dwg-root", namespace = "http://dwg.autopipes.org")
@@ -232,5 +234,12 @@ public class CadEndpoint {
 	public void setReportingService(final ReportingService reportingService) {
 		this.reportingService = reportingService;
 	}
+	public Jaxb2Marshaller getMarshaller() {
+		return marshaller;
+	}
+	public void setMarshaller(Jaxb2Marshaller marshaller) {
+		this.marshaller = marshaller;
+	}
+
 
 }

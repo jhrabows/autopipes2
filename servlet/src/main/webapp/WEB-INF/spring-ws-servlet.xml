@@ -14,6 +14,7 @@
         <property name="storageService" ref="storageService"/>
         <property name="analyzerService" ref="analyzerService"/>
         <property name="reportingService" ref="reportingService"/>
+    	<property name="marshaller" ref="jaxb2Marshaller"/>
         
         <dwr:remote javascript="Autopipes">
         	<dwr:include method="getBranchInfoForArea"/>
@@ -85,9 +86,11 @@
     <bean id="loggingInterceptor"
     class="org.springframework.ws.soap.server.endpoint.interceptor.SoapEnvelopeLoggingInterceptor"/>
 
-  <bean id="resourceReader" class="org.autopipes.util.OxmResourceReader">
+  <bean id="resourceReader" class="org.autopipes.takeout.TakeoutResourceReader">
+  <!-- 
     <constructor-arg ref="jaxb2Marshaller"/>
     <constructor-arg ref="jaxb2Marshaller"/>
+   -->
   </bean>
   
 <!-- Jaxb2 configuration: list of application classes -->

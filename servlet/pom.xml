@@ -16,11 +16,12 @@
 			<groupId>org.autopipes</groupId>
 			<artifactId>autopipes-core</artifactId>
 		</dependency>
+		<!-- 
 		<dependency>
 			<groupId>org.autopipes</groupId>
 			<artifactId>takeout</artifactId>
 		</dependency>
-
+		 -->
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>

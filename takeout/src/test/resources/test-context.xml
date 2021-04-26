@@ -15,11 +15,13 @@
   </bean>
   
   <!-- Factory to deserialize XML resources -->
-  <bean id="resourceReader" class="org.autopipes.util.OxmResourceReader">
+  <bean id="resourceReader" class="org.autopipes.takeout.TakeoutResourceReader">
+  <!-- 
     <constructor-arg ref="jaxb2Marshaller"/>
     <constructor-arg ref="jaxb2Marshaller"/>
+   -->
   </bean>
-  
+  <!-- 
   <bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
         <property name="classesToBeBound">
             <list>
@@ -34,5 +36,5 @@
             </map>
         </property>
   </bean>
-   
+    -->
 </beans>
