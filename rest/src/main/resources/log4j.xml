@@ -36,6 +36,11 @@
    	  <appender-ref ref="WEBLOG" />
 	</category>
 
+<!-- default autopipes classes logging level -->
+	<category name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+	  <priority value="info" /> 
+   	  <appender-ref ref="WEBLOG" />
+	</category>
 
 <!-- everything else is logged at error verbosity -->
 	<root>
