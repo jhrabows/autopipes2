@@ -3,13 +3,15 @@ package org.autopipes.model;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import javax.annotation.Nonnull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+//import org.codehaus.jackson.annotate.JsonIgnore;
+// import com.fasterxml.jackson.annotation.JsonIgnore;
 
 	/**
 	 * Jaxb bean which contains information which applies to the entire drawing.
@@ -26,13 +28,15 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     public class FloorDrawing {
 
 		@XmlElement(name = "dwg-id")
+		@Nonnull
 	    protected Long id;
 	    @XmlElement(name = "dwg-name", required = true)
+		@Nonnull
 	    protected String dwgName;
 	    @XmlElement(name = "dwg-text-size")
 	    protected Double dwgTextSize;
 	    @XmlElement(name = "dwg-update-date")
-	    @JsonIgnore // TODO: this should not be ignored but TS generator chokes on Calendar. Should change to Date
+//	    @JsonIgnore // TODO: this should not be ignored but TS generator chokes on Calendar. Should change to Date
 	    protected Calendar dwgUpdateDate;
 	    @XmlElement(name = "options-root")
 	    protected DrawingOptions optionsRoot;

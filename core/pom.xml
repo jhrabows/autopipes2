@@ -56,10 +56,16 @@
 	  <artifactId>jsr305</artifactId>
 	</dependency>
 	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-annotations</artifactId>
+	</dependency>
+
+	<!-- 
+	<dependency>
 	   <groupId>org.codehaus.jackson</groupId>
 	   <artifactId>jackson-mapper-asl</artifactId>
 	 </dependency>	
-  
+   -->
 	<dependency>
         <groupId>com.oracle</groupId>
         <artifactId>ojdbc7</artifactId>
@@ -98,16 +104,16 @@
 					</execution>
 		      	</executions>
 		      	<configuration>
-		          <jsonLibrary>jackson1</jsonLibrary>
+		          <jsonLibrary>jackson2</jsonLibrary>
 		          <outputKind>module</outputKind>
 		          <outputFileType>implementationFile</outputFileType>
 		          <mapClasses>asInterfaces</mapClasses>
 		          <mapEnum>asEnum</mapEnum>
-				  	<customTypeMappings>java.util.Date:number,java.sql.Timestamp:number</customTypeMappings>   
+				  	<customTypeMappings>java.util.Date:number,java.sql.Timestamp:number,java.util.Calendar:number</customTypeMappings>   
 				    <nonConstEnums>true</nonConstEnums>
 				    <optionalProperties>useSpecifiedAnnotations</optionalProperties>
 				    <requiredAnnotations>javax.annotation.Nonnull</requiredAnnotations>
-				    <excludePropertyAnnotations>org.codehaus.jackson.annotate.JsonIgnore</excludePropertyAnnotations>
+				    <excludePropertyAnnotations>com.fasterxml.jackson.annotation.JsonIgnore</excludePropertyAnnotations>
 				    <optionalPropertiesDeclaration>nullableType</optionalPropertiesDeclaration>
 				</configuration>
 			</plugin>	

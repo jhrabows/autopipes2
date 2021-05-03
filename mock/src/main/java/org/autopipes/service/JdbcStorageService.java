@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -12,12 +13,13 @@ import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.autopipes.model.DrawingArea;
 import org.autopipes.model.FloorDrawing;
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.JavaType;
+//import org.codehaus.jackson.type.JavaType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
+
+//import org.codehaus.jackson.JsonParseException;
+//import org.codehaus.jackson.map.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 // Mock version
 public class JdbcStorageService  implements StorageService  {
@@ -53,9 +55,9 @@ public class JdbcStorageService  implements StorageService  {
 		List<FloorDrawing> ret = new ArrayList<>();
 		String json = getResourceAsString(allDrawings);
 		try {	
-			ret = (List<FloorDrawing>) getObjectFromJSONList(json, FloorDrawing.class);
+			ret =  getObjectFromJSONList(json, FloorDrawing.class);
 			logger.info("Found " + ret.size() + " drawings");
-		} catch (IOException e) {
+		} catch (IOException | ClassNotFoundException e) {
 			logger.error("Cannot find drawings", e);
 		}
 		return ret;
@@ -66,9 +68,9 @@ public class JdbcStorageService  implements StorageService  {
 		List<DrawingArea> ret = new ArrayList<>();
 		String json = getResourceAsString(allDrawingAreas);
 		try {	
-			ret = (List<DrawingArea>) getObjectFromJSONList(json, DrawingArea.class);
+			ret = getObjectFromJSONList(json, DrawingArea.class);
 			logger.info("Found " + ret.size() + " areas");
-		} catch (IOException e) {
+		} catch (IOException | ClassNotFoundException e) {
 			logger.error("Cannot find areas", e);
 		}
 		return ret;
@@ -79,9 +81,9 @@ public class JdbcStorageService  implements StorageService  {
 		List<DrawingArea> ret = new ArrayList<>();
 		String json = getResourceAsString(test2joeAreas);
 		try {	
-			ret = (List<DrawingArea>) getObjectFromJSONList(json, DrawingArea.class);
+			ret =  getObjectFromJSONList(json, DrawingArea.class);
 			logger.info("Found " + ret.size() + " areas");
-		} catch (IOException e) {
+		} catch (IOException | ClassNotFoundException e) {
 			logger.error("Cannot find areas for dwgId:" + dwgId, e);
 		}
 		return ret;
@@ -164,13 +166,25 @@ public class JdbcStorageService  implements StorageService  {
 //  	  return unmarshaller.unmarshal(s);
 //	}
 	
-	public Object getObjectFromJSONList(String src, Class<?> elementClass) throws JsonParseException, JsonMappingException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		JavaType type = mapper.getTypeFactory().
-				  constructCollectionType(List.class, elementClass);
-		return mapper.readValue(src, type);
-	}
-	public Object getObjectFromJSON(String src, Class<?> objectClass) throws JsonParseException, JsonMappingException, IOException {
+//	public Object getObjectFromJSONList(String src, Class<?> elementClass) throws  IOException {
+//		ObjectMapper mapper = new ObjectMapper();
+//		JavaType type = mapper.getTypeFactory().
+//				  constructCollectionType(List.class, elementClass);
+//		return mapper.readValue(src, type);
+//		
+//		return  mapper.readValue(src, new TypeReference<List<MyClass>>(){});
+//	}
+	
+	public static<T> List<T> getObjectFromJSONList(String json,
+            Class<T> classOnWhichArrayIsDefined) 
+            throws IOException, ClassNotFoundException {
+			ObjectMapper mapper = new ObjectMapper();
+			Class<T[]> arrayClass = (Class<T[]>) Class.forName("[L" + classOnWhichArrayIsDefined.getName() + ";");
+			T[] objects = mapper.readValue(json, arrayClass);
+			return Arrays.asList(objects);
+}	
+	
+	public Object getObjectFromJSON(String src, Class<?> objectClass) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.readValue(src, objectClass);
 	}

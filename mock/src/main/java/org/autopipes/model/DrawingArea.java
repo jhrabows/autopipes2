@@ -17,7 +17,8 @@ import org.autopipes.model.AreaCutSheet.BranchInfo;
 import org.autopipes.model.AreaCutSheet.CutSheetInfo;
 import org.autopipes.model.AreaCutSheet.EdgeMultiplicity;
 import org.autopipes.model.DrawingLayer.Designation;
-import org.codehaus.jackson.annotate.JsonIgnore;
+// import org.codehaus.jackson.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Jaxb bean which contains information about an area within a drawing.

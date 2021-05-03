@@ -244,13 +244,13 @@
 	    <artifactId>jackson-annotations</artifactId>
 	    <version>${jackson.version}</version>
 	</dependency>
-	
+	<!--  
 	<dependency>
 	   <groupId>org.codehaus.jackson</groupId>
 	   <artifactId>jackson-mapper-asl</artifactId>
 	   <version>${codehouse.version}</version>
 	 </dependency>	
-
+-->
     </dependencies>
   </dependencyManagement>
   
