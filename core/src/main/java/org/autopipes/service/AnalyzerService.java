@@ -1,6 +1,5 @@
 package org.autopipes.service;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,7 +52,6 @@ import org.autopipes.util.GraphUtils;
 import org.autopipes.util.PlaneGeo;
 import org.autopipes.util.PlaneGeo.Divider;
 import org.autopipes.util.PlaneGeo.Point;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.jgrapht.Graphs;
 import org.jgrapht.UndirectedGraph;
 import org.jgrapht.alg.ConnectivityInspector;
@@ -1930,7 +1928,7 @@ public class AnalyzerService {
 		   Diameter d = sidePipe.getDiameter();
 		   outlet.setDiameter(d);
 		   if(pipeFitting.getJump() == Jump.NONE && !sidePipe.isVertical()){ // plane orientation
-			   ObjectMapper om = new ObjectMapper();
+//			   ObjectMapper om = new ObjectMapper();
 
 				   // find orientation of tee
 //			   if(sidePipe.getDesignation() == Designation.Head){
@@ -1956,11 +1954,7 @@ public class AnalyzerService {
 					   double sign = planeGeo.signAngleMeasure(triple);
 					   outlet.setSideCount(sign < 0 ? -1 : 1);					   
 				   }else {
-					   try {
-						logger.error("Side pipe without end point (cannot position): " + om.writeValueAsString(sidePipe));
-					   } catch (IOException e) {
-							 e.printStackTrace();
-					   }				   
+						logger.error("Side pipe without end point (cannot position): " + sidePipe);
 				   }
 			   
 		   }		   
