@@ -13,46 +13,43 @@
 	<context:component-scan base-package="org.autopipes" />
 	<mvc:annotation-driven />
 	
-<!-- Service endpoint
-  <bean id="jsonResponseController" class="org.autopipes.controller.JsonResponseController">
-        <property name="storageService" ref="storageService"/>
-  </bean>
- -->
-
   <bean id="storageService" class="org.autopipes.service.JdbcStorageService" init-method="init">
     <property name="dataSource" ref="dataSource"/>
     <property name="schema" value="${jdbc.schema}"/>
     <property name="schemaSeparator" value="${jdbc.schema.separator}"/>
-    <!-- 
-    <property name="marshaller" ref="jaxb2Marshaller"/>
-    <property name="unmarshaller" ref="jaxb2Marshaller"/>
-     -->
+  </bean>
+  
+  <bean id="reportingService" class="org.autopipes.service.ReportingService">
+      <property name="pipeConfig" ref="pipeConfig"/>
+      <property name="planeGeo" ref="planeGeo"/>
+  </bean>
+  
+  <bean id="analyzerService" class="org.autopipes.service.AnalyzerService">
+    <property name="planeGeo" ref="planeGeo"/>
+    <property name="takeout" ref="takeoutRepo"/>
+    <property name="fittingFactory" ref="fittingFactory"/>
+    <property name="pipeConfig" ref="pipeConfig"/>
   </bean>
 
+  
+  <bean id="fittingFactory" class="org.autopipes.takeout.Fitting$Factory" >
+    <property name="takeout" ref="takeoutRepo"/>
+  </bean>
 
-<!-- Jaxb2 configuration: list of application classes -->
-<!-- 
-    <bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
-        <property name="classesToBeBound">
-            <list>
-                <value>org.autopipes.takeout.TakeoutRepository</value>
-                <value>org.autopipes.model.FloorDrawing</value>
-                <value>org.autopipes.model.DrawingLayer</value>
-                <value>org.autopipes.model.DrawingOptions</value>
-                <value>org.autopipes.model.DrawingArea</value>
-                <value>org.autopipes.model.AreaBody</value>
-                <value>org.autopipes.model.RenderDwg</value>
-            </list>
-        </property>
-        <property name="marshallerProperties">
-            <map>
-                <entry key = "jaxb.formatted.output">
-                    <value type="java.lang.Boolean">true</value>
-                </entry>
-            </map>
-        </property>
-    </bean>
- -->
+  <bean id="planeGeo" class="org.autopipes.util.PlaneGeo">
+     <property name="linearTolerance"><value type="java.lang.Double">0.5</value></property>
+     <property name="angularTolerance"><value type="java.lang.Double">0.05</value></property>
+     <property name="pointClass"><value type="java.lang.Class">org.autopipes.model.DwgPoint</value></property>
+  </bean>
+
+  <bean id="takeoutRepo" factory-bean="resourceReader" factory-method="read" init-method="initLookup">
+    <constructor-arg value="WEB-INF/takeoutrepo.xml"/>
+  </bean>
+  
+  <bean id="resourceReader" class="org.autopipes.takeout.TakeoutResourceReader">
+  </bean>
+  
+
   <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName"  value="java:comp/env/jdbc/OracleDS"  />
   </bean>
