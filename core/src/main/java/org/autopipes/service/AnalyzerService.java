@@ -41,9 +41,11 @@ import org.autopipes.model.PipeFitting;
 import org.autopipes.model.PipeFitting.Jump;
 import org.autopipes.takeout.Attachment;
 import org.autopipes.takeout.Diameter;
+import org.autopipes.takeout.Diametrisable;
 import org.autopipes.takeout.Fitting;
 import org.autopipes.takeout.Fitting.Direction;
 import org.autopipes.takeout.Fitting.Type;
+import org.autopipes.takeout.FittingFactory;
 import org.autopipes.takeout.TakeoutRepository;
 import org.autopipes.takeout.Vendor;
 import org.autopipes.util.CollectionComparator;
@@ -63,7 +65,7 @@ public class AnalyzerService {
 
     private PlaneGeo planeGeo;
     private TakeoutRepository takeout;
-    private Fitting.Factory fittingFactory;
+//    private Fitting.Factory fittingFactory;
     private PipeConfig pipeConfig;
    	private PipeCollectionComparator pipeCollectionComparator;
    	private UndirectedGraph<Pipe, DefaultEdge> parallelGraph;
@@ -525,7 +527,7 @@ public class AnalyzerService {
 					}else{
 						// figure out the coupling that might be used for this pipe
 						Pipe[] pipes = {pipe, pipe};
-				    	Fitting f = fittingFactory.instanceOf(Type.Coupling, Attachment.threaded, null,
+				    	Fitting f = createFitting(Type.Coupling, Attachment.threaded, null,
 				    			Arrays.asList(pipes), null);
 				    	double cutTakeout = 2*takeout.locateTakeout(f, Direction.E).doubleValue();
 				    	divider.subdivideLastThreaded(start, end, chainTakeout, cutTakeout);
@@ -628,7 +630,7 @@ public class AnalyzerService {
     		return 0;
     	}
 		Pipe[] pipes = {pipe, pipe};
-    	Fitting f = fittingFactory.instanceOf(Type.Coupling, Attachment.threaded, null,
+    	Fitting f = createFitting(Type.Coupling, Attachment.threaded, null,
     			Arrays.asList(pipes), null);
     	return takeout.locateTakeout(f, Direction.E).doubleValue();
     }
@@ -1690,7 +1692,7 @@ public class AnalyzerService {
     			attachements.add(a);
     		}
     	}
-    	Fitting fitting = fittingFactory.instanceOf(fittingType, attachment, vendor, pipes, attachements);
+    	Fitting fitting = createFitting(fittingType, attachment, vendor, pipes, attachements);
     	logger.debug("Created fitting:" + fitting + " at " + pf.getCenter());
         pf.setFitting(fitting);
         for(int i = 0; i < pipes.size(); i++){
@@ -1707,6 +1709,12 @@ public class AnalyzerService {
             }
         }
         return;
+    }
+    
+    private Fitting createFitting(final Type type, final Attachment attachment, final Vendor vendor,
+			final List<? extends Diametrisable> d, final List<Attachment> attList) {
+    	Diameter minGroovedOutlet = takeout.getMinGroovedDiameter();
+    	return FittingFactory.instanceOf(type, attachment, vendor, d, attList, minGroovedOutlet);
     }
 
    public static class PipeCollectionComparator implements Comparator<Collection<Pipe>> {
@@ -2612,12 +2620,12 @@ public class AnalyzerService {
 	public void setTakeout(final TakeoutRepository takeout) {
 		this.takeout = takeout;
 	}
-	public Fitting.Factory getFittingFactory() {
-		return fittingFactory;
-	}
-	public void setFittingFactory(final Fitting.Factory fittingFactory) {
-		this.fittingFactory = fittingFactory;
-	}
+//	public Fitting.Factory getFittingFactory() {
+//		return fittingFactory;
+//	}
+//	public void setFittingFactory(final Fitting.Factory fittingFactory) {
+//		this.fittingFactory = fittingFactory;
+//	}
 	public PipeConfig getPipeConfig() {
 		return pipeConfig;
 	}

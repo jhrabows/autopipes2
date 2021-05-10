@@ -27,15 +27,16 @@
   <bean id="analyzerService" class="org.autopipes.service.AnalyzerService">
     <property name="planeGeo" ref="planeGeo"/>
     <property name="takeout" ref="takeoutRepo"/>
-    <property name="fittingFactory" ref="fittingFactory"/>
+<!--     <property name="fittingFactory" ref="fittingFactory"/>  -->
     <property name="pipeConfig" ref="pipeConfig"/>
   </bean>
 
-  
+ <!-- 
   <bean id="fittingFactory" class="org.autopipes.takeout.Fitting$Factory" >
     <property name="takeout" ref="takeoutRepo"/>
   </bean>
-
+ --> 
+ 
   <bean id="planeGeo" class="org.autopipes.util.PlaneGeo">
      <property name="linearTolerance"><value type="java.lang.Double">0.5</value></property>
      <property name="angularTolerance"><value type="java.lang.Double">0.05</value></property>

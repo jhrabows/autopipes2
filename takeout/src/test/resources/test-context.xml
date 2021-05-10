@@ -9,11 +9,11 @@
   <bean id="takeoutRepo" factory-bean="resourceReader" factory-method="read" init-method="initLookup">
     <constructor-arg value="test-takeout.xml"/>
   </bean>
-  
+  <!-- 
   <bean id="fittingFactory" class="org.autopipes.takeout.Fitting$Factory" >
     <property name="takeout" ref="takeoutRepo"/>
   </bean>
-  
+   -->
   <!-- Factory to deserialize XML resources -->
   <bean id="resourceReader" class="org.autopipes.takeout.TakeoutResourceReader">
   <!-- 
