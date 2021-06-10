@@ -1650,10 +1650,15 @@ public class AnalyzerService {
     	Vendor ret = null;
     	String name = null;
     	Pipe head = Pipe.findHeadPipe(ps);
-    	if(head != null) {
-    		name = head.getLayerName();
+    	String headName = head != null ? head.getLayerName() : null;
+    	String mainName = Pipe.maxMainName(ps.get(0));  
+    	if(headName == null) {
+    		name = mainName;
+    	}else if(mainName == null) {
+    		name = headName;
     	}else {
-        	name = Pipe.maxMainName(ps.get(0));    		
+    		// both main and head have layer defined
+    		name = mainName; 
     	}
     	if(name != null){
     		ret = opt.findLayer(name).getVendor();
