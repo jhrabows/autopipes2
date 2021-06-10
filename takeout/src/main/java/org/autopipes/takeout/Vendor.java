@@ -6,5 +6,6 @@ package org.autopipes.takeout;
  */
 public enum Vendor {
 	  VIC,
+	  VIC_IR,
 	  FIRELOCK;
 }

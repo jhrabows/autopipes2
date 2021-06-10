@@ -200,17 +200,24 @@
         <main>true</main>
         <targetHole>1.75</targetHole>
         <groovedByAngle>
-        	<!-- 1 1/4 ell comes from a single vendor, not VIC or FIRELOCK, but for UI must send something and it will not matter -->
+        	<!-- VIC_IR only for 1 1/4  -->
+            <entry>
+                <key>deg45</key>
+                <value>
+			        <byVendor>
+			            <entry>
+			                <key>VIC_IR</key>
+			                <value>0.8100</value>
+			            </entry>
+			        </byVendor>
+                </value>
+            </entry>
             <entry>
                 <key>deg90</key>
                 <value>
 			        <byVendor>
 			            <entry>
-			                <key>VIC</key>
-			                <value>1.5000</value>
-			            </entry>
-			            <entry>
-			                <key>FIRELOCK</key>
+			                <key>VIC_IR</key>
 			                <value>1.5000</value>
 			            </entry>
 			        </byVendor>
@@ -456,6 +463,12 @@
                             <value>1.7500</value>
                         </entry>
                     </byDiameter>
+                	<byVendor>
+			            <entry>
+			                <key>VIC_IR</key>
+			                <value>0.9400</value>
+			            </entry>
+                	</byVendor>
                 </value>
             </entry>
             <entry>
@@ -465,6 +478,10 @@
 			            <entry>
 			                <key>VIC</key>
 			                <value>2.7500</value>
+			            </entry>
+			            <entry>
+			                <key>VIC_IR</key>
+			                <value>1.5600</value>
 			            </entry>
 			            <entry>
 			                <key>FIRELOCK</key>
@@ -699,6 +716,12 @@
                             <value>2</value>
                         </entry>
                     </byDiameter>
+                    <byVendor>
+			            <entry>
+			                <key>VIC_IR</key>
+			                <value>1.0000</value>
+			            </entry>
+                    </byVendor>
                 </value>
             </entry>
             <entry>
@@ -708,6 +731,10 @@
 			            <entry>
 			                <key>VIC</key>
 			                <value>3.2500</value>
+			            </entry>
+			            <entry>
+			                <key>VIC_IR</key>
+			                <value>1.8800</value>
 			            </entry>
 			            <entry>
 			                <key>FIRELOCK</key>
@@ -951,6 +978,12 @@
                             <value>2.25</value>
                         </entry>
                     </byDiameter>
+                    <byVendor>
+			            <entry>
+			                <key>VIC_IR</key>
+			                <value>1.1300</value>
+			            </entry>
+                    </byVendor>
                 </value>
             </entry>
             <entry>
@@ -960,6 +993,10 @@
 			            <entry>
 			                <key>VIC</key>
 			                <value>3.7500</value>
+			            </entry>
+			            <entry>
+			                <key>VIC_IR</key>
+			                <value>2.1300</value>
 			            </entry>
 			            <entry>
 			                <key>FIRELOCK</key>
@@ -1177,6 +1214,12 @@
                             <value>2.5</value>
                         </entry>
                     </byDiameter>
+                	<byVendor>
+			            <entry>
+			                <key>VIC_IR</key>
+			                <value>1.1300</value>
+			            </entry>
+                	</byVendor>
                 </value>
             </entry>
             <entry>
@@ -1186,6 +1229,10 @@
 			            <entry>
 			                <key>VIC</key>
 			                <value>4.2500</value>
+			            </entry>
+			            <entry>
+			                <key>VIC_IR</key>
+			                <value>2.1900</value>
 			            </entry>
 			            <entry>
 			                <key>FIRELOCK</key>
