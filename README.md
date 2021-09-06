@@ -1,4 +1,4 @@
-# autopipes2
+# autopipes2 (spring 4)
 ## history
 imported from SF/SVN
 upgrade to spring 3
