@@ -8,11 +8,18 @@
               driverClassName="org.apache.derby.jdbc.EmbeddedDriver"
               url="jdbc:derby:Databases/Autopipes;create=true"/>
               
-        <Resource name="jdbc/OracleDS"
+        <Resource name="jdbc/OracleDS_XE"
               type="javax.sql.DataSource"  auth="Container"
               description="Oracle database for Template"
               maxActive="100" maxIdle="30" maxWait="10000"
               username="autopipes" password="autopipes" 
               driverClassName="oracle.jdbc.OracleDriver"
               url="jdbc:oracle:thin:@localhost:1521:XE"/>
+        <Resource name="jdbc/OracleDS_ORCL"
+              type="javax.sql.DataSource"  auth="Container"
+              description="Oracle database for Template"
+              maxActive="100" maxIdle="30" maxWait="10000"
+              username="autopipes" password="autopipes" 
+              driverClassName="oracle.jdbc.OracleDriver"
+              url="jdbc:oracle:thin:@localhost:1521:ORCL"/>
 </Context> 

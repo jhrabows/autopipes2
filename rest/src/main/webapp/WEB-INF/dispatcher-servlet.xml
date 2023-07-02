@@ -52,7 +52,7 @@
   
 
   <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName"  value="java:comp/env/jdbc/OracleDS"  />
+		<property name="jndiName"  value="java:comp/env/jdbc/OracleDS_${DB_SERVICE:XE}"  />
   </bean>
 
 <!-- Property file for connectivity and location of Schema DDL file -->
