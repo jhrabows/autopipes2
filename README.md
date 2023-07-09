@@ -14,3 +14,10 @@ The tests run against test schema owner. You can create that owner with *recreat
 
 ## Related Links
 https://github.com/Tshibek/excel_project
+
+## Env Variables
+HYDROSERVER=http://localhost:9090/autorest/xml
+
+Oracle service name from TNSNAMES.ora. Required if different from XE (Oracle 10 value). ORCL is Oracle 11 value.
+
+CATALINA_OPTS=-DDB_SERVICE=ORCL
