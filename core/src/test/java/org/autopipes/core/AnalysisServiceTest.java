@@ -134,6 +134,16 @@ public class AnalysisServiceTest {
 	}
 	
 	@Test
+	public void testWeldedThread() throws IOException, JAXBException {
+		TestResource tr = TestResource.create("dwg2", "simple");
+		
+    	analyzerService.validateArea(tr.getDrawing(), tr.getArea());
+    	assertTrue(tr.getArea().getAreaReadiness() == Readiness.Ready);
+    	analyzerService.buildCutSheetReport(tr.getDrawing(), tr.getArea());
+		
+	}
+	
+	@Test
 	public void testFlexHead() throws  IOException, JAXBException {
 //		Resource errmain = new ClassPathResource("/dwg/error/cfg.xml");
 //		Resource flexhead = new ClassPathResource("/dwg/error/flex-head.xml");

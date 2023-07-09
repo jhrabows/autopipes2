@@ -2212,7 +2212,11 @@ public class AnalyzerService {
    					mainGrCutSheetList = area.getAreaCutSheet().getMainGroovedList();
    				}else{
    					isWeld = true;
-   					mainGrCutSheetList = area.getAreaCutSheet().getMainWeldedList();
+   					if(dl.getSubType() == Attachment.weldedGroove) {
+   	   					mainGrCutSheetList = area.getAreaCutSheet().getMainWeldedList();
+   					}else {// == Attachment.welded
+   	   					mainGrCutSheetList = area.getAreaCutSheet().getMainWeldedThList();
+   					}
    				}
    			}
    					

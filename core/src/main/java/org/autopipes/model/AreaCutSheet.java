@@ -420,7 +420,21 @@ public class AreaCutSheet {
   
   @XmlElement(name = "mainWelded")
   protected List<MainCutSheetInfo> mainWeldedList;
+  
+  @XmlElement(name = "mainWeldedTh")
+  protected List<MainCutSheetInfo> mainWeldedThList;
 
+  public List<MainCutSheetInfo> getMainWeldedThList() {
+		 if(mainWeldedThList == null){
+			 mainWeldedThList = new ArrayList<MainCutSheetInfo>();
+		 }
+		 return mainWeldedThList;
+  }
+	
+  public void setMainWeldedThList(List<MainCutSheetInfo> mainWeldedThList) {
+		this.mainWeldedThList = mainWeldedThList;
+  }
+	
   public List<MainCutSheetInfo> getMainGroovedList() {
 		 if(mainGroovedList == null){
 			 mainGroovedList = new ArrayList<MainCutSheetInfo>();

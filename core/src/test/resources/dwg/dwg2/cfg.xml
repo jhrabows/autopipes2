@@ -1,0 +1,49 @@
+<dwg:dwg-root xmlns:dwg="http://dwg.autopipes.org">
+	<dwg-name xmlns="http://dwg.autopipes.org">Drawing2</dwg-name>
+	<dwg-text-size xmlns="http://dwg.autopipes.org">7</dwg-text-size>
+	<dwg-update-date xmlns="http://dwg.autopipes.org">2018-10-26T23:25:33
+	</dwg-update-date>
+	<options-root xmlns="http://dwg.autopipes.org">
+		<layers-root>
+			<layer name="out" type="Output" />
+			<layer name="main" type="Main" sub-type="welded"
+				main-diameter="D3" vendor="VIC" />
+			<layer name="branch" type="Branch">
+				<headcount>
+					<entry xmlns="">
+						<key>1</key>
+						<value>D1</value>
+					</entry>
+					<entry xmlns="">
+						<key>3</key>
+						<value>D125</value>
+					</entry>
+				</headcount>
+			</layer>
+		</layers-root>
+		<branch-prefix>#</branch-prefix>
+		<branch-count-start>1</branch-count-start>
+		<main-prefix>M-</main-prefix>
+		<main-count-start>1</main-count-start>
+		<error-color>Magenta</error-color>
+		<short-pipe>12</short-pipe>
+		<long-pipe>126</long-pipe>
+		<main-cut-space>6</main-cut-space>
+		<main-cut-list>
+			<main-cut>126</main-cut>
+			<main-cut>120</main-cut>
+			<main-cut>108</main-cut>
+			<main-cut>96</main-cut>
+		</main-cut-list>
+		<branch-cut-list>
+			<branch-cut>84</branch-cut>
+		</branch-cut-list>
+		<weld-if-equal>Y</weld-if-equal>
+		<abco-mode>N</abco-mode>
+	</options-root>
+	<dwg-id xmlns="http://dwg.autopipes.org">1</dwg-id>
+	<dwg-id xmlns="http://dwg.autopipes.org">21</dwg-id>
+	<dwg-id xmlns="http://dwg.autopipes.org">21</dwg-id>
+	<dwg-id xmlns="http://dwg.autopipes.org">21</dwg-id>
+</dwg:dwg-root>
+
